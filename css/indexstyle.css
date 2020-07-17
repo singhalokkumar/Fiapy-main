@@ -1,0 +1,471 @@
+
+@media only screen and (max-width: 500px){
+  	/*=============First Setion=======================*/
+#first{
+    background: linear-gradient(to right, #33ccff 0%, #5E79A8 65%);
+}
+#head1{
+    height: 500px;
+    position: relative-bottom;
+}
+#nav{
+    background: transparent !important;
+
+}
+#search{
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 50px;
+    border-radius: 5px !important;
+    width: 90%;
+}
+#search-bar{
+	width: 250px;
+	display: inline-block;
+	margin-bottom: 10px;
+	outline: none;
+}
+#drp-btn{
+	background: white;
+	margin-bottom: 10px;
+}
+#drp-btn:hover{
+	color: black;
+}
+#drp-btn:click{
+	outline: none;
+}
+#search-btn{
+	background: green;
+	border:none;
+	border-radius: 5px; 
+	color: white;
+	padding-left: 20px;
+	padding-right: 20px;
+	margin-left: 130%;
+}
+/*===========service section=========*/
+#cards{
+    width: 70px;
+    height: 70px;
+    border-radius: 5px;
+    margin: 20px;
+    background: linear-gradient(to bottom, #FDA55F 0%, #FF6270 100%);
+    color: #3D5154;
+}
+#service-img{
+    width:70px;
+    height:70px;
+    padding: 15px
+}
+#card-text{
+    text-align: center;
+    padding-top: 5px;
+}
+#services{
+    border: 1px black solid;
+    width: 92%;
+    background-color: white;
+    margin-top:50px;
+    border-radius: 10px;
+    position: absolute;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	padding: 18px;
+}
+/*================upper-curve==================*/
+#servcurvbg{
+	height: 150px;
+	background: linear-gradient(to right, #33ccff 0%, #5E79A8 65%);
+}
+#servcurv{
+	border-radius: 50% 50% 0% 0%; 
+	height: 50px; 
+	background-color: white;
+}
+#servbtm{
+	height:100px;background-color:white;
+}
+/*==========second section================*/
+#second{
+    height: 300px;
+    background: linear-gradient(to right, #ffff 0%, #32383E 120%);
+}
+/*=========Third Section=========*/
+#carousel-1{
+    background: linear-gradient(to right, #ffff 0%, #32383E 150%);
+}
+#carousel-inner-1{
+    padding-top: 100px;
+    padding-bottom: 100px;
+
+}
+#card-imgs{
+    margin: 40px;
+    border-radius: 10px;
+    width: 18rem;
+}
+
+/*===============fourth section=================*/
+
+#key{
+    height: 300px;
+    background: linear-gradient(to right, #ffff 0%, #32383E 120%);
+    text-align: center;
+    padding-top: 100px;
+}
+
+/*===========Fifth section=====*/
+#carousel{
+    background: linear-gradient(to top right, #FF6270 0%, #FDA55F 100%);
+    color: white;
+    padding-top: 100px;
+}
+
+/*====================sixth section===================*/
+
+#Availability{
+    height: 300px;
+    background: linear-gradient(to right, #ffff 0%, #32383E 120%);
+    text-align: center;
+    padding-top: 100px;
+}
+
+/*====================Seventh Section====================*/
+#phone-service{
+    margin-top: 300px;
+}
+#download-icon{
+    width: 100px;
+    height: 40px;
+}
+#download-icon1{
+    width: 120px;
+    height: 60px;
+}
+/*===========Footer==================*/
+#footer{
+     background: linear-gradient(to right, #33ccff 0%, #5E79A8 65%);
+     color: white;
+     padding-top: 100px;
+     padding-bottom: 100px;
+}
+li{
+    list-style: none;
+    text-decoration: none;
+    color: white;
+}
+#footer-link>div>a>li:hover{
+    text-decoration: underline;
+}
+#footer-link>div>li{
+    list-style: none;
+}
+#Subscribe-btn{
+    width: 100%;
+    margin:10px;
+    margin-right: 50px !important;
+}
+button{
+	position: relative;
+}
+
+
+/*      login           */
+#back{
+	background: rgba(0, 0, 0, 0.7);
+	width: 100%;
+	height: 100%;
+	position: fixed;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	top:0;
+}
+#box{
+	width:600px;
+	border-radius: 10px;
+	text-align: center;
+	padding-top: 50px;
+	padding-bottom: 50px;
+	background: white;
+}
+#ep{
+	width: 70%;
+	height: 50px;
+	border-top: none;
+	border-left: none;
+	border-right: none;
+	margin: 20px;
+	background: transparent;
+	outline: none;
+}
+a{
+	text-decoration: none;
+	color:black;
+	cursor: pointer;
+}
+#btn-close{
+	border: none;
+	background: white;
+	position: static;
+	margin-left: 450px;
+	top: 190px;
+	font: 25px;
+}
+#btn-submit{
+	outline: none;
+	width: 60%;
+}
+#register{
+
+}
+#otp{
+	display: none;
+}
+
+#frgt-otp{
+	display: none;
+}
+#prof-otp{
+	display: none;
+}
+
+#prof-frgt-otp{
+	display: none;
+}
+}
+
+@media only screen and (min-width: 500px){
+
+  	/*=============First Setion=======================*/
+#first{
+    background: linear-gradient(to right, #33ccff 0%, #5E79A8 65%);
+}
+#head1{
+    height: 400px;
+    position: relative-bottom;
+}
+#nav{
+    background: transparent !important;
+
+}
+#search{
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 100px;
+    border-radius: 5px !important;
+    width: 90%;
+}
+#drp-btn{
+	background: white;
+
+}
+#drp-btn:hover{
+	color: black;
+}
+#drp-btn:click{
+	outline: none;
+}
+#search-btn{
+	background: green;
+	border:none;
+	border-radius: 5px; 
+	color: white;
+	padding-left: 20px;
+	padding-right: 20px;
+}
+/*===========service section=========*/
+#cards{
+    width: 110px;
+    height: 100px;
+    border-radius: 5px;
+    margin: 35px;
+    background: linear-gradient(to bottom, #FDA55F 0%, #FF6270 100%);
+    color: #3D5154;
+}
+#service-img{
+    width:110px;
+    height:100px;
+    padding: 15px
+}
+#card-text{
+    text-align: center;
+    padding-top: 5px;
+}
+#services{
+    border: 1px black solid;
+    width: 75%;
+    background-color: white;
+    margin-top:100px;
+    border-radius: 10px;
+    position: absolute;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+
+}
+/*================upper-curve==================*/
+#servcurvbg{
+	height: 300px;
+	background: linear-gradient(to right, #33ccff 0%, #5E79A8 65%);
+}
+#servcurv{
+	border-radius: 50% 50% 0% 0%; 
+	height: 150px; 
+	background-color: white;
+}
+#servbtm{
+	height:200px;background-color:white;
+}
+/*==========second section================*/
+#second{
+    height: 300px;
+    background: linear-gradient(to right, #ffff 0%, #32383E 120%);
+}
+/*=========Third Section=========*/
+#carousel-1{
+    background: linear-gradient(to right, #ffff 0%, #32383E 150%);
+}
+#carousel-inner-1{
+    padding-top: 100px;
+    padding-bottom: 100px;
+
+}
+#card-imgs{
+    margin: 40px;
+    border-radius: 10px;
+    width: 18rem;
+}
+
+/*===============fourth section=================*/
+
+#key{
+    height: 300px;
+    background: linear-gradient(to right, #ffff 0%, #32383E 120%);
+    text-align: center;
+    padding-top: 100px;
+}
+
+/*===========Fifth section=====*/
+#carousel{
+    background: linear-gradient(to top right, #FF6270 0%, #FDA55F 100%);
+    color: white;
+    padding-top: 100px;
+}
+
+/*====================sixth section===================*/
+
+#Availability{
+    height: 300px;
+    background: linear-gradient(to right, #ffff 0%, #32383E 120%);
+    text-align: center;
+    padding-top: 100px;
+}
+
+/*====================Seventh Section====================*/
+#phone-service{
+    margin-top: 300px;
+}
+#download-icon{
+    width: 100px;
+    height: 40px;
+}
+#download-icon1{
+    width: 120px;
+    height: 60px;
+}
+/*===========Footer==================*/
+#footer{
+     background: linear-gradient(to right, #33ccff 0%, #5E79A8 65%);
+     color: white;
+     padding-top: 100px;
+     padding-bottom: 100px;
+}
+li{
+    list-style: none;
+    text-decoration: none;
+    color: white;
+}
+#footer-link>div>a>li:hover{
+    text-decoration: underline;
+}
+#footer-link>div>li{
+    list-style: none;
+}
+#Subscribe-btn{
+    width: 100%;
+    margin:10px;
+    margin-right: 50px !important;
+}
+button{
+	position: relative;
+}
+
+
+/*      login           */
+#back{
+	background: rgba(0, 0, 0, 0.7);
+	width: 100%;
+	height: 100%;
+	position: fixed;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	top:0;
+}
+#box{
+	width:600px;
+	border-radius: 10px;
+	text-align: center;
+	padding-top: 50px;
+	padding-bottom: 50px;
+	background: white;
+}
+#ep{
+	width: 70%;
+	height: 50px;
+	border-top: none;
+	border-left: none;
+	border-right: none;
+	margin: 20px;
+	background: transparent;
+	outline: none;
+}
+a{
+	text-decoration: none;
+	color:black;
+	cursor: pointer;
+}
+#btn-close{
+	border: none;
+	background: white;
+	position: static;
+	margin-left: 450px;
+	top: 190px;
+	font: 25px;
+}
+#btn-submit{
+	outline: none;
+	width: 60%;
+}
+#register{
+
+}
+#otp{
+	display: none;
+}
+
+#frgt-otp{
+	display: none;
+}
+#prof-otp{
+	display: none;
+}
+
+#prof-frgt-otp{
+	display: none;
+}
+
+}
