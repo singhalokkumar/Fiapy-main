@@ -28,6 +28,10 @@
 		</nav>
 		<div class="input-group" id="search">
   			<input type="text" class="form-control" aria-label="Text input with segmented dropdown button" placeholder="Search for a service" id="search-bar">
+
+
+
+
   			<button type="button" class="btn btn-outline-secondary dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id="drp-btn">
       			<span class="sr-only">Toggle Dropdown</span>
     		</button>
