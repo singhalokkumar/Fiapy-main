@@ -33,20 +33,20 @@ session_start();
 		// Check For The Matched Rows
 		$num = mysqli_num_rows($result);
 
-		// $name = " select firstname  from  `fiapy-db` . `user-registration`  where email = '$email' && password = '$password' ";
+		$name = " select firstname  from  `fiapy-db` . `user-registration`  where email = '$email' && password = '$password' ";
 
-		// $result1 = mysqli_query($con, $name);
+		$result1 = mysqli_query($con, $name);
 
-		// // Check For The Matched Rows
-		// $num1 = mysqli_num_rows($result1);
+		// Check For The Matched Rows
+		$num1 = mysqli_num_rows($result1);
 
-		// if($num1 == 1){
-		// 	$_SESSION['email'] = $name;
-		// }
+		if($num1 == 1){
+			$_SESSION['email'] = $name;
+		}
 
 
 		if($num == 1  ){
-			$_SESSION['email'] = $email;
+			// $_SESSION['email'] = $email;
 			header('location: index1.php');
 		}
 		else {
