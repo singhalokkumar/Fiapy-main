@@ -1,4 +1,6 @@
-
+<?php
+	session_start();
+?>
 <!doctype html>
 <html lang="en">
 <head>
@@ -22,15 +24,18 @@
   			<div class="container3">
 				<div class="btn-group ">
 					<button type="button" class="btn btn-primary-outline" style="color: white !important;" onclick="openproflogin()"><i class="fas fa-hammer"></i>  Register as Professional</button>
-					<button type="button" class="btn btn-primary-outline" style="color: white !important;" onclick="openlogin()"><i class="far fa-user"></i> Login</button>
+					<button type="button" class="btn btn-primary-outline" style="color: white !important;" onclick="openlogin()"><i class="far fa-user"></i> 
+
+					Login
+				
+				</button>
 				</div>
 			</div>
 		</nav>
 		<div class="input-group" id="search">
-  			<input type="text" class="form-control" aria-label="Text input with segmented dropdown button" placeholder="Search for a service" id="search-bar">
-
-
-
+		<form action="index.php" method="post">
+			  <input type="text" name="q" class="form-control" aria-label="Text input with segmented dropdown button" placeholder="Search for a service" id="search-bar">
+		</form>
 
   			<button type="button" class="btn btn-outline-secondary dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id="drp-btn">
       			<span class="sr-only">Toggle Dropdown</span>

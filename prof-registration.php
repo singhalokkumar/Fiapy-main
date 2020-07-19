@@ -32,7 +32,7 @@ if(isset($_POST['firstname'])){
 	$sql;
 	
 	// Checking For Already Registered User
-	$s = "select * from `prof-registration` . `registration`  where email = '$email' && phone = '$phoneno'  ";
+	$s = "select * from `fiapy-db` . `prof-registration`  where email = '$email' && phone = '$phoneno'  ";
 
 	$result = mysqli_query($con, $s);
 
@@ -46,7 +46,7 @@ if(isset($_POST['firstname'])){
 
 	// Excute The Sql Query
 	else{
-	$sql = "INSERT INTO `prof-registration` . `registration` ( `firstname`, `lastname`, `phone`, `email`, `password`) VALUES ( '$firstname', '$lastname', '$phoneno', '$email', '$password');";
+	$sql = "INSERT INTO `fiapy-db` . `prof-registration` ( `firstname`, `lastname`, `phone`, `email`, `password`) VALUES ( '$firstname', '$lastname', '$phoneno', '$email', '$password');";
 
     $insert = true;
 	

@@ -24,7 +24,7 @@ $login = false;
 		$password = $_POST['password'];
 
 		// Excute Sql Query
-		$sql = "select * from `prof-registration` . `registration`  where email = '$email' && password = '$password' ";
+		$sql = "select * from `fiapy-db` . `prof-registration`  where email = '$email' && password = '$password' ";
 
 		$result = mysqli_query($con, $sql);
 
@@ -39,6 +39,7 @@ $login = false;
 		else {
 			// echo "Email and Passwoed Doesnt match";
 			$login = true;
+			header('location: index.php');
 		}
 		
 		$con -> close();
