@@ -1,4 +1,6 @@
-
+<?php
+	session_start();
+?>
 <!doctype html>
 <html lang="en">
 <head>
@@ -9,6 +11,7 @@
   <link rel="icon" type="image/x-icon" href="favicon.ico">
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
   <link rel="stylesheet" type="text/css" href="Fiapy-main/css/indexstyle.css">
+  <!-- <link rel="stylesheet" href="css\indexstyle.css"> -->
 </head>
 <body>
 	<section id="first">
@@ -22,14 +25,18 @@
 				<div class="btn-group ">
 					<button type="button" class="btn btn-primary-outline" style="color: white !important;" onclick="openproflogin()"><i class="fas fa-hammer"></i>  Register as Professional</button>
 					<button type="button" class="btn btn-primary-outline" style="color: white !important;" onclick="openlogin()"><i class="far fa-user"></i> 
-					Login
-				
+					<?php
+				 	  echo "Welcome ". '<strong>' . $_SESSION['email'] . '</strong>';
+				?>
 				</button>
 				</div>
 			</div>
 		</nav>
 		<div class="input-group" id="search">
-  			<input type="text" class="form-control" aria-label="Text input with segmented dropdown button" placeholder="Search for a service" id="search-bar">
+		<form action="index.php" method="post">
+			  <input type="text" name="q" class="form-control" aria-label="Text input with segmented dropdown button" placeholder="Search for a service" id="search-bar">
+		</form>
+
   			<button type="button" class="btn btn-outline-secondary dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id="drp-btn">
       			<span class="sr-only">Toggle Dropdown</span>
     		</button>
@@ -414,45 +421,33 @@
 <!------------------------coustomer-login------------------------------------------------>
 
 <div style="position: absolute;display: none;" id="login">
-	<form action="" method="POST">
+	<form action="\Fiapy-main\login1.php" method="post">
 		<div id="back">
 			<div  id="box" class="center">
 				<button id="btn-close" onclick="closelogin()"><i class="fa fa-times" aria-hidden="true"></i></button>
 				<h1>Login</h1>
-				<input type="text" name="username" placeholder="Username" id="username" required="">
-				<input type="password" name="passwordd" placeholder="password" id="passwordd" required=""><br>
-				<input type="Submit" class="btn btn-success" name="login" value='Login' ><br><br>
-			</form>
+				<input type="Email" name="email" placeholder="Email" id="ep">
+				<input type="password" name="password" placeholder="password" id="ep"><br>
+				<input type="Submit" class="btn btn-success" name="Login" value='Login' ><br><br>
 				<a onclick="openregistration()"><strong>New User?</strong></a><br>
 				<a onclick="openfrgt()"><strong>forgot password?</strong></a>
 			</div>
 		</div>
+		</form>
 </div>
-
+                             
 <div>
 	<?php
 	if (isset($_POST['create'])) {
-		$firstname  = $_POST['firstname'];
-		$lastname  = $_POST['lastname'];
-		$phoneno  = $_POST['phoneno'];
-		$email  = $_POST['email'];
-		$password  = $_POST['password'];
-
-		$sql = "INSERT INTO users (firstname, lastname, email, phoneno,password) VALUES(?,?,?,?,?)";
-		$stmtinsert = $db->prepare($sql);
-		$result = $stmtinsert->execute([$firstname,$lastname, $email, $phoneno, $password]);
-		if($result){
-			echo 'Your message has been submitted';
-		}
-		else{
-			'Error please try again later;';
-		}
+		echo 'submited';
 	}
+
+
 	?>
 </div>
 <div style="position: absolute; display: none;" id="registeration">
 
-	<form action="" method="post">
+	<form action="\Fiapy-main\registration.php" method="post">
 		<div id="back">
 			<div  id="box" class="center">
 				<button id="btn-close" onclick="closeregistration()"><i class="fa fa-times" aria-hidden="true"></i></button>
@@ -502,65 +497,45 @@
 
 
 <div style="position: absolute;display: none;" id="prof-login">
+<form action="\Fiapy-main\prof-login.php" method="post">
 	<div id="back">
 		<div  id="box" class="center">
 			<button id="btn-close" onclick="closeproflogin()"><i class="fa fa-times" aria-hidden="true"></i></button>
 			<h1>Login</h1>
-			<input type="Email" name="Email" placeholder="Email" id="ep">
+			<input type="Email" name="email" placeholder="Email" id="ep">
 			<input type="password" name="password" placeholder="password" id="ep"><br>
-			<button class="btn btn-success" name="">Login</button><br><br>
+			<button class="btn btn-success" name="Login">Login</button><br><br>
 			<a onclick="openprofregistration()"><strong>New User?</strong></a><br>
 			<a onclick="openproffrgt()"><strong>forgot password?</strong></a>
 		</div>
 	</div>
-</div>
-
-<div>
-	<?php
-	if (isset($_POST['prof-create'])) {
-		$proffirstname  = $_POST['prof-firstname'];
-		$proflastname  = $_POST['prof-lastname'];
-		$profphoneno  = $_POST['prof-phoneno'];
-		$profemail  = $_POST['prof-email'];
-		$profpassword  = $_POST['prof-password'];
-
-		$sql = "INSERT INTO professionals (proffirstname, proflastname, profemail, profphoneno, profpassword) VALUES(?,?,?,?,?)";
-		$stmtinsert = $db->prepare($sql);
-		$result = $stmtinsert->execute([$proffirstname,$proflastname, $profemail, $profphoneno, $profpassword]);
-		if($result){
-			echo 'Your message has been submitted';
-		}
-		else{
-			'Error please try again later;';
-		}
-	}
-	?>
+</form>
 </div>
 
 <div style="position: absolute; display: none;" id="prof-registeration">
-	<form action="" method="post">
-		<div id="back">
-			<div  id="box" class="center">
-				<button id="btn-close" onclick="closeprofregistration()"><i class="fa fa-times" aria-hidden="true"></i></button>
-				<h1>Register as a Professional</h1>
-				<div id="prof-register">
-					<input type="text" name="prof-firstname" placeholder="First Name" id="ep">
-					<input type="text" name="prof-lastname" placeholder="Last Name" id="ep">
-					<input type="text" name="prof-phoneno" placeholder="Phone No." id="ep">
-					<input type="Email" name="prof-email" placeholder="Email" id="ep">
-					<input type="password" name="prof-password" placeholder="password" id="ep"><br>
-					<button class="btn btn-success" name="prof-create" onclick="openprofrgsotp()">Create Account</button><br><br>
-				</div>
-				<!--            OTP Section               -->
-				<div id="prof-otp">
-					<p><strong>An OTP has been sent to your mobile no.</strong></p>
-					<input type="password" name="OTP" placeholder="OTP" id="ep"><br>
-					<button class="btn btn-success" name="otpsubmit" id="btn-submit">Submit</button><br><br>
-				</div>
-				<a onclick="openproflogin()"><strong>Already Registered?</strong></a>
+<form action="\Fiapy-main\prof-registration.php" method="post">
+	<div id="back">
+		<div  id="box" class="center">
+			<button id="btn-close" onclick="closeprofregistration()"><i class="fa fa-times" aria-hidden="true"></i></button>
+			<h1>Create</h1>
+			<div id="prof-register">
+				<input type="text" name="firstname" placeholder="First Name" id="ep">
+				<input type="text" name="lastname" placeholder="Last Name" id="ep">
+				<input type="text" name="phoneno" placeholder="Phone No." id="ep">
+				<input type="Email" name="email" placeholder="Email" id="ep">
+				<input type="password" name="password" placeholder="password" id="ep"><br>
+				<button class="btn btn-success" name="Login" onclick="openprofrgsotp()">Create Account</button><br><br>
 			</div>
+			<!--            OTP Section               -->
+			<div id="prof-otp">
+				<p><strong>An OTP has been sent to your mobile no.</strong></p>
+				<input type="password" name="OTP" placeholder="OTP" id="ep"><br>
+				<button class="btn btn-success" name="otpsubmit" id="btn-submit">Submit</button><br><br>
+			</div>
+			<a onclick="openproflogin()"><strong>Already Registered?</strong></a>
 		</div>
-	</form>
+	</div>
+</form>
 </div>
 
 <div style="position: absolute;display: none;" id="prof-frgt">
@@ -677,45 +652,14 @@ function openfrgtotp() {
   document.getElementById("frgt-otp").style.display = "block";
   document.getElementById("forgot").style.display = "none";
 }
+
+
+
 </script>
-
-
-
-
 
   <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
 <script src="https://kit.fontawesome.com/5f35b5df4f.js" crossorigin="anonymous"></script>
-
-
-
-
-<script type="text/javascript">
-	$(function(){
-		$('#login').click(function(e){
-			var valid = this.form.CheckValidity();
-
-			if(valid){
-				var username = $('#username').val();
-				var passwordd = $('#passwordd').val();
-			}
-			e.preventDefault();
-
-			 $.ajax({
-			 	type : 'POST',
-			 	url : 'login.php',
-			 	data : {username:username, passwordd:passwordd},
-			 	success : function(data){
-			 		alert(data);
-			 	},
-			 	error: function(data){
-			 		alert('error');
-			 	}
-			 })
-		});
-	});
-</script>
-
 </body>
 </html>

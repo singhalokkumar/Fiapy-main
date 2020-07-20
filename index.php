@@ -1,3 +1,6 @@
+<?php
+	session_start();
+?>
 <!doctype html>
 <html lang="en">
 <head>
@@ -7,7 +10,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="icon" type="image/x-icon" href="favicon.ico">
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
-  <link rel="stylesheet" type="text/css" href="Fiapy%20main/css/indexstyle.css">
+  <link rel="stylesheet" type="text/css" href="Fiapy-main/css/indexstyle.css">
+  <!-- <link rel="stylesheet" href="css\indexstyle.css"> -->
 </head>
 <body>
 	<section id="first">
@@ -20,12 +24,19 @@
   			<div class="container3">
 				<div class="btn-group ">
 					<button type="button" class="btn btn-primary-outline" style="color: white !important;" onclick="openproflogin()"><i class="fas fa-hammer"></i>  Register as Professional</button>
-					<button type="button" class="btn btn-primary-outline" style="color: white !important;" onclick="openlogin()"><i class="far fa-user"></i> Login</button>
+					<button type="button" class="btn btn-primary-outline" style="color: white !important;" onclick="openlogin()"><i class="far fa-user"></i> 
+
+					Login
+				
+				</button>
 				</div>
 			</div>
 		</nav>
 		<div class="input-group" id="search">
-  			<input type="text" class="form-control" aria-label="Text input with segmented dropdown button" placeholder="Search for a service" id="search-bar">
+		<form action="index.php" method="post">
+			  <input type="text" name="q" class="form-control" aria-label="Text input with segmented dropdown button" placeholder="Search for a service" id="search-bar">
+		</form>
+
   			<button type="button" class="btn btn-outline-secondary dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id="drp-btn">
       			<span class="sr-only">Toggle Dropdown</span>
     		</button>
@@ -60,19 +71,19 @@
 					<div class="row">
 						<a [routerLink]="['/services/electrician']">
 							<div class="cards" id="cards">
-								<img src="Fiapy%20main/images/Electrician.png" class="card-img-top" id="service-img">
+								<img src="Fiapy-main/images/Electrician.png" class="card-img-top" id="service-img">
 								<p id="card-text">Electrician</p>
 							</div>
 						</a>
 						<a [routerLink]="['/services/plumber']">
 							<div class="cards" id="cards">
-								<img src="Fiapy%20main/images/Plumber.png" class="card-img-top" id="service-img">
+								<img src="Fiapy-main/images/Plumber.png" class="card-img-top" id="service-img">
 								<p id="card-text">Plumber</p>
 							</div>
 						</a>
 						<a [routerLink]="['/services/carpenter']">
 							<div class="cards" id="cards">
-								<img src="Fiapy%20main/images/Carpenter.png" class="card-img-top" id="service-img">
+								<img src="Fiapy-main/images/Carpenter.png" class="card-img-top" id="service-img">
 								<p id="card-text">Carpenter</p>
 							</div>
 						</a>
@@ -82,13 +93,13 @@
 					<div class="row">
 						<a [routerLink]="['/services/mechanic']">
 							<div class="cards" id="cards">
-								<img src="Fiapy%20main/images/Mechanic.png" class="card-img-top" id="service-img">
+								<img src="Fiapy-main/images/Mechanic.png" class="card-img-top" id="service-img">
 								<p id="card-text">Mechanic</p>
 							</div>
 						</a>
 						<a [routerLink]="['/services/haircut']">
 							<div class="cards" id="cards">
-								<img src="Fiapy%20main/images/Salon.png" class="card-img-top" id="service-img">
+								<img src="Fiapy-main/images/Salon.png" class="card-img-top" id="service-img">
 								<p id="card-text">Haircut/Saloon</p>
 							</div>
 						</a>
@@ -138,22 +149,22 @@
     	<div class="container" >
     		<div class="row" id="carousel-inner-1">
     			<div class="card" id="card-imgs">
-  				<img src="Fiapy%20main/images/artisan.jpg" class="card-img-top" alt="...">
+  				<img src="Fiapy-main/images/artisan.jpg" class="card-img-top" alt="...">
 			</div>
 			<div class="card" id="card-imgs">
-  				<img src="Fiapy%20main/images/plumber.jpg" class="card-img-top" alt="...">
+  				<img src="Fiapy-main/images/plumber.jpg" class="card-img-top" alt="...">
 			</div>
 			<div class="card" id="card-imgs">
-  				<img src="Fiapy%20main/images/working.jpg" class="card-img-top" alt="...">
+  				<img src="Fiapy-main/images/working.jpg" class="card-img-top" alt="...">
 			</div>
     		</div>
   	</div>
     </div>
     <div class="carousel-item">
-      <img src="Fiapy%20main/images/#" class="d-block w-100" alt="...">
+      <img src="Fiapy-main/images/#" class="d-block w-100" alt="...">
     </div>
     <div class="carousel-item">
-      <img src="Fiapy%20main/images/#" class="d-block w-100" alt="...">
+      <img src="Fiapy-main/images/#" class="d-block w-100" alt="...">
     </div>
   </div>
   <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
@@ -230,10 +241,10 @@
     </div>
 </div>
     <div class="carousel-item">
-      <img src="Fiapy%20main/images/#" class="d-block w-100" alt="...">
+      <img src="Fiapy-main/images/#" class="d-block w-100" alt="...">
     </div>
     <div class="carousel-item">
-      <img src="Fiapy%20main/images/#" class="d-block w-100" alt="...">
+      <img src="Fiapy-main/images/#" class="d-block w-100" alt="...">
     </div>
   </div>
   <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
@@ -271,14 +282,14 @@
   				</div>
 			</div>
 			<a href="#">
-			<img src="Fiapy%20main/images/googleplay.png" id="download-icon1">
+			<img src="Fiapy-main/images/googleplay.png" id="download-icon1">
 			</a>
 			<a href="#">
-			<img src="Fiapy%20main/images/appstore.png" id="download-icon">
+			<img src="Fiapy-main/images/appstore.png" id="download-icon">
 			</a>
 		</div>
 		<div class="col-sm-5">
-			<img src="Fiapy%20main/images/iPhone.png" style="height: 500px;margin-right:  100px;">
+			<img src="Fiapy-main/images/iPhone.png" style="height: 500px;margin-right:  100px;">
 		</div>
 	</div>
 </div>
@@ -410,12 +421,12 @@
 <!------------------------coustomer-login------------------------------------------------>
 
 <div style="position: absolute;display: none;" id="login">
-	<form action="index.php" method="POST">
+	<form action="\Fiapy-main\login1.php" method="post">
 		<div id="back">
 			<div  id="box" class="center">
 				<button id="btn-close" onclick="closelogin()"><i class="fa fa-times" aria-hidden="true"></i></button>
 				<h1>Login</h1>
-				<input type="Email" name="Email" placeholder="Email" id="ep">
+				<input type="Email" name="email" placeholder="Email" id="ep">
 				<input type="password" name="password" placeholder="password" id="ep"><br>
 				<input type="Submit" class="btn btn-success" name="Login" value='Login' ><br><br>
 				<a onclick="openregistration()"><strong>New User?</strong></a><br>
@@ -436,7 +447,7 @@
 </div>
 <div style="position: absolute; display: none;" id="registeration">
 
-	<form action="index.php" method="post">
+	<form action="\Fiapy-main\registration.php" method="post">
 		<div id="back">
 			<div  id="box" class="center">
 				<button id="btn-close" onclick="closeregistration()"><i class="fa fa-times" aria-hidden="true"></i></button>
@@ -445,7 +456,7 @@
 					<input type="text" name="firstname" placeholder="First Name" id="ep" required="">
 					<input type="text" name="lastname" placeholder="Last Name" id="ep" required="">
 					<input type="text" name="phoneno" placeholder="Phone No." id="ep" required="">
-					<input type="Email" name="Email" placeholder="Email" id="ep" required="">
+					<input type="Email" name="email" placeholder="Email" id="ep" required="">
 					<input type="password" name="password" placeholder="password" id="ep" required=""><br>
 					<input type="Submit" class="btn btn-success" name="create" value="Create Account"><br><br>
 				</div>
@@ -486,20 +497,23 @@
 
 
 <div style="position: absolute;display: none;" id="prof-login">
+<form action="\Fiapy-main\prof-login.php" method="post">
 	<div id="back">
 		<div  id="box" class="center">
 			<button id="btn-close" onclick="closeproflogin()"><i class="fa fa-times" aria-hidden="true"></i></button>
 			<h1>Login</h1>
-			<input type="Email" name="Email" placeholder="Email" id="ep">
+			<input type="Email" name="email" placeholder="Email" id="ep">
 			<input type="password" name="password" placeholder="password" id="ep"><br>
 			<button class="btn btn-success" name="Login">Login</button><br><br>
 			<a onclick="openprofregistration()"><strong>New User?</strong></a><br>
 			<a onclick="openproffrgt()"><strong>forgot password?</strong></a>
 		</div>
 	</div>
+</form>
 </div>
 
 <div style="position: absolute; display: none;" id="prof-registeration">
+<form action="\Fiapy-main\prof-registration.php" method="post">
 	<div id="back">
 		<div  id="box" class="center">
 			<button id="btn-close" onclick="closeprofregistration()"><i class="fa fa-times" aria-hidden="true"></i></button>
@@ -508,7 +522,7 @@
 				<input type="text" name="firstname" placeholder="First Name" id="ep">
 				<input type="text" name="lastname" placeholder="Last Name" id="ep">
 				<input type="text" name="phoneno" placeholder="Phone No." id="ep">
-				<input type="Email" name="Email" placeholder="Email" id="ep">
+				<input type="Email" name="email" placeholder="Email" id="ep">
 				<input type="password" name="password" placeholder="password" id="ep"><br>
 				<button class="btn btn-success" name="Login" onclick="openprofrgsotp()">Create Account</button><br><br>
 			</div>
@@ -521,6 +535,7 @@
 			<a onclick="openproflogin()"><strong>Already Registered?</strong></a>
 		</div>
 	</div>
+</form>
 </div>
 
 <div style="position: absolute;display: none;" id="prof-frgt">
