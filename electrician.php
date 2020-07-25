@@ -1,3 +1,62 @@
+<?php   
+
+ session_start();  
+ $total = 0;
+ $connect = mysqli_connect("localhost", "root", ""); 
+
+ if(isset($_POST["addtocart"]))  
+ {  
+    if(isset($_SESSION["shopping_cart"]))  
+    {  
+        
+        $item_array_id = array_column($_SESSION["shopping_cart"], "item_id");  
+        if(!in_array($_GET["id"], $item_array_id))  
+        {  
+             $count = count($_SESSION["shopping_cart"]);  
+             $item_array = array(  
+                  'item_id'               =>     $_GET["id"],  
+                  'item_name'               =>     $_POST["name"],  
+                  'item_price'          =>     $_POST["price"] ,
+                  'item_quantity'          =>     $_POST["number"]  
+             );  
+             $_SESSION["shopping_cart"][$count] = $item_array;  
+        }  
+        else  
+        {  
+             echo '<script>alert("Item Already Added")</script>';  
+             echo '<script>window.location="electrician.php"</script>';  
+        }  
+    }
+    else  
+    {  
+         $item_array = array(  
+              'item_id'               =>     $_GET["id"],  
+              'item_name'               =>     $_POST["name"],  
+              'item_price'          =>     $_POST["price"],
+              'item_quantity'          =>     $_POST["number"]  
+         );  
+         $_SESSION["shopping_cart"][0] = $item_array; 
+    }  
+           
+ }
+ if(isset($_GET["action"]))  
+ {  
+      if($_GET["action"] == "delete")  
+      {  
+           foreach($_SESSION["shopping_cart"] as $keys => $values)  
+           {  
+                if($values["item_id"] == $_GET["id"])  
+                {  
+                     unset($_SESSION["shopping_cart"][$keys]);  
+                     echo '<script>alert("Item Removed")</script>';  
+                     echo '<script>window.location="electrician.php"</script>';  
+                }  
+           }  
+      }  
+ }  
+ ?>
+
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -197,7 +256,7 @@ color: purple;
         background: transparent;
     }
     #checkout{
-    width: 100%;
+    width: 196%;
     height: 50px; 
     margin-top: 10px; 
     margin-right: 10px;
@@ -207,7 +266,7 @@ color: purple;
         height: 30px;
         border-bottom: 1px solid #ddd;
         padding-left: 10px;
-        color: white;
+        color: black;
         margin: 10px;
         }
 </style>
@@ -313,141 +372,238 @@ color: purple;
         </ul>
     </nav>
 </div>
+
+        <!-- ========================Components================== -->
 <div class="row" data-spy="scroll" data-target="#navbar-orders-now-status" data-offset="50" style="height: 450px; overflow-y: scroll; background-color:white">
     <div class="col-12">
-		<h4 id="SECTION1"></h4>
+        <h4 id="SECTION1"></h4>
+        <?php
+                 $query = "SELECT * FROM `fiapy-db` . `product` where id = 1";  
+                 $result = mysqli_query($connect, $query);  
+                 if(mysqli_num_rows($result) > 0)  
+                {  
+                     $row = mysqli_fetch_assoc($result)
+                     
+                        
+               
+        ?>
+         <form action="/Fiapy-main/electrician.php?action=add&id=<?php echo $row["id"]; ?>" method="post">
         <div class="container-fluid">
 			<div style="border-bottom: 1px solid #ddd;"><p style="margin-bottom: 0;">Switches/Sockets</p></div>
             <ul class="list-group">
             <li class="list-group-item" *ngFor="let items of itemList">
             	<div id="item" class="row">
 	<div id="item-img"><img src=""></div>
-	<div id="item-desc"><p>{{ itemdetails.name }}</p><p>{{ itemdetails.cost | currency:'INR'}}</p></div>
+	<div id="item-desc"><p><input name="name" value="<?php echo $row["name"]; ?>" /></p><p><input name="price" value="<?php echo $row["price"]; ?>" /></p></div>
 	<div id="quantity">
-    <button id="addtocart-btn" (click)="handelerAddToCart()" *ngIf="quantity===0">Add to cart</button>
-        <form *ngIf="quantity>0">
+    <button name="addtocart" id="addtocart-btn" (click)="handelerAddToCart()" *ngIf="quantity===0">Add to cart</button>
+        <!-- <form *ngIf="quantity>0"> -->
             <div class="row">
                  <div class="value-button" id="decrease" (click)="decreseItem()" value="Decrease Value" >-</div>
-                 <div><input type="number" id="number" value="{{quantity}}" /></div>
+                 <div><input name="number" type="number" id="number" value="1" /></div>
                  <div class="value-button" id="increase" (click)="handelerAddToCart()" value="Increase Value">+</div>
             </div>
-        </form>
+        <!-- </form> -->
     </div>
-    
+    </form>
+    <?php  
+                     
+                }  
+    ?> 
 </div>
 			</li>
             </ul>
 		</div>
         <h4 id="SECTION2"></h4>
+        <?php
+                 $query = "SELECT * FROM `fiapy-db` . `product` where id = 2";  
+                 $result = mysqli_query($connect, $query);  
+                 if(mysqli_num_rows($result) > 0)  
+                {  
+                     $row = mysqli_fetch_assoc($result)
+                     
+                        
+               
+        ?>
+         <form action="/Fiapy-main/electrician.php?action=add&id=<?php echo $row["id"]; ?>" method="post">
         <div class="container-fluid">
 			<div style="border-bottom: 1px solid #ddd;"><p style="margin-bottom: 0;">Switches/Sockets</p></div>
             <ul class="list-group">
             <li class="list-group-item" *ngFor="let items of itemList">
 				<div id="item" class="row">
 	<div id="item-img"><img src=""></div>
-	<div id="item-desc"><p>{{ itemdetails.name }}</p><p>{{ itemdetails.cost | currency:'INR'}}</p></div>
+	<div id="item-desc"><p><input name="name" value="<?php echo $row["name"]; ?>" /></p><p><input name="price" value="<?php echo $row["price"]; ?>" /></p></div>
 	<div id="quantity">
-    <button id="addtocart-btn" (click)="handelerAddToCart()" *ngIf="quantity===0">Add to cart</button>
-        <form *ngIf="quantity>0">
+    <button name="addtocart" id="addtocart-btn" (click)="handelerAddToCart()" *ngIf="quantity===0">Add to cart</button>
+        <!-- <form *ngIf="quantity>0"> -->
             <div class="row">
                  <div class="value-button" id="decrease" (click)="decreseItem()" value="Decrease Value" >-</div>
-                 <div><input type="number" id="number" value="{{quantity}}" /></div>
+                 <div><input name="number" type="number" id="number" value="1" /></div>
                  <div class="value-button" id="increase" (click)="handelerAddToCart()" value="Increase Value">+</div>
             </div>
-        </form>
+        <!-- </form> -->
     </div>
-    
+    </form>
+    <?php  
+                     
+                }  
+    ?> 
 </div>
 			</li>
             </ul>
 		</div>
         <h4 id="SECTION3"></h4>
+        <?php
+                 $query = "SELECT * FROM `fiapy-db` . `product` where id = 3";  
+                 $result = mysqli_query($connect, $query);  
+                 if(mysqli_num_rows($result) > 0)  
+                {  
+                     $row = mysqli_fetch_assoc($result)
+                     
+                        
+               
+        ?>
+         <form action="/Fiapy-main/electrician.php?action=add&id=<?php echo $row["id"]; ?>" method="post">
         <div class="container-fluid">
 			<div style="border-bottom: 1px solid #ddd;"><p style="margin-bottom: 0;">Switches/Sockets</p></div>
             <ul class="list-group">
             <li class="list-group-item" *ngFor="let items of itemList">
 				<div id="item" class="row">
 	<div id="item-img"><img src=""></div>
-	<div id="item-desc"><p>{{ itemdetails.name }}</p><p>{{ itemdetails.cost | currency:'INR'}}</p></div>
+	<div id="item-desc"><p><input name="name" value="<?php echo $row["name"]; ?>" /></p><p><input name="price" value="<?php echo $row["price"]; ?>" /></p></div>
 	<div id="quantity">
-    <button id="addtocart-btn" (click)="handelerAddToCart()" *ngIf="quantity===0">Add to cart</button>
-        <form *ngIf="quantity>0">
+    <button name="addtocart" id="addtocart-btn" (click)="handelerAddToCart()" *ngIf="quantity===0">Add to cart</button>
+        <!-- <form *ngIf="quantity>0"> -->
             <div class="row">
                  <div class="value-button" id="decrease" (click)="decreseItem()" value="Decrease Value" >-</div>
-                 <div><input type="number" id="number" value="{{quantity}}" /></div>
+                 <div><input name="number" type="number" id="number" value="1" /></div>
                  <div class="value-button" id="increase" (click)="handelerAddToCart()" value="Increase Value">+</div>
             </div>
-        </form>
+        <!-- </form> -->
     </div>
-    
+    </form>
+    <?php  
+                     
+                }  
+    ?> 
 </div>
 			</li>
             </ul>
 		</div>
-		<h4 id="SECTION4"></h4>
+        <h4 id="SECTION4"></h4>
+        <?php
+                 $query = "SELECT * FROM `fiapy-db` . `product` where id = 4";  
+                 $result = mysqli_query($connect, $query);  
+                 if(mysqli_num_rows($result) > 0)  
+                {  
+                     $row = mysqli_fetch_assoc($result)
+                     
+                        
+               
+        ?>
+         <form action="/Fiapy-main/electrician.php?action=add&id=<?php echo $row["id"]; ?>" method="post">
 		<div class="container-fluid">
 			<div style="border-bottom: 1px solid #ddd;"><p style="margin-bottom: 0;">Switches/Sockets</p></div>
             <ul class="list-group">
             <li class="list-group-item" *ngFor="let items of itemList">
 				<div id="item" class="row">
 	<div id="item-img"><img src=""></div>
-	<div id="item-desc"><p>{{ itemdetails.name }}</p><p>{{ itemdetails.cost | currency:'INR'}}</p></div>
+	<div id="item-desc"><p><input name="name" value="<?php echo $row["name"]; ?>" /></p><p><input name="price" value="<?php echo $row["price"]; ?>" /></p></div>
 	<div id="quantity">
-    <button id="addtocart-btn" (click)="handelerAddToCart()" *ngIf="quantity===0">Add to cart</button>
-        <form *ngIf="quantity>0">
+    <button name="addtocart" id="addtocart-btn" (click)="handelerAddToCart()" *ngIf="quantity===0">Add to cart</button>
+        <!-- <form *ngIf="quantity>0"> -->
             <div class="row">
                  <div class="value-button" id="decrease" (click)="decreseItem()" value="Decrease Value" >-</div>
-                 <div><input type="number" id="number" value="{{quantity}}" /></div>
+                 <div><input name="number" type="number" id="number" value="1" /></div>
                  <div class="value-button" id="increase" (click)="handelerAddToCart()" value="Increase Value">+</div>
             </div>
-        </form>
+        <!-- </form> -->
     </div>
-    
+    </form>
+    <?php  
+                     
+                }  
+    ?> 
 </div>
 			</li>
             </ul>
 		</div>
-		<h4 id="SECTION5"></h4>
+        <h4 id="SECTION5"></h4>
+        <?php
+                 $query = "SELECT * FROM `fiapy-db` . `product` where id = 5";  
+                 $result = mysqli_query($connect, $query);  
+                 if(mysqli_num_rows($result) > 0)  
+                {  
+                     $row = mysqli_fetch_assoc($result)
+                     
+                        
+               
+        ?>
+         <form action="/Fiapy-main/electrician.php?action=add&id=<?php echo $row["id"]; ?>" method="post">
 		<div class="container-fluid">
 			<div style="border-bottom: 1px solid #ddd;"><p style="margin-bottom: 0;">Switches/Sockets</p></div>
             <ul class="list-group">
             <li class="list-group-item" *ngFor="let items of itemList">
 				<div id="item" class="row">
 	<div id="item-img"><img src=""></div>
-	<div id="item-desc"><p>{{ itemdetails.name }}</p><p>{{ itemdetails.cost | currency:'INR'}}</p></div>
+	<div id="item-desc"><p><input name="name" value="<?php echo $row["name"]; ?>" /></p><p><input name="price" value="<?php echo $row["price"]; ?>" /></p></div>
 	<div id="quantity">
-    <button id="addtocart-btn" (click)="handelerAddToCart()" *ngIf="quantity===0">Add to cart</button>
-        <form *ngIf="quantity>0">
+    <button name="addtocart" id="addtocart-btn" (click)="handelerAddToCart()" *ngIf="quantity===0">Add to cart</button>
+        <!-- <form *ngIf="quantity>0"> -->
             <div class="row">
                  <div class="value-button" id="decrease" (click)="decreseItem()" value="Decrease Value" >-</div>
-                 <div><input type="number" id="number" value="{{quantity}}" /></div>
+                 <div><input name="number" type="number" id="number" value="1" /></div>
                  <div class="value-button" id="increase" (click)="handelerAddToCart()" value="Increase Value">+</div>
             </div>
-        </form>
+        <!-- </form> -->
     </div>
-    
+     </form>
+    <?php  
+                     
+                }  
+    ?> 
+
+
 </div>
 			</li>
             </ul>
 		</div>
-		<h4 id="SECTION6"></h4>
+        <h4 id="SECTION6"></h4>
+        <?php
+                 $query = "SELECT * FROM `fiapy-db` . `product` where id = 6";  
+                 $result = mysqli_query($connect, $query);  
+                 if(mysqli_num_rows($result) > 0)  
+                {  
+                     $row = mysqli_fetch_assoc($result)
+                     
+                        
+               
+        ?>
+
+        <form action="/Fiapy-main/electrician.php?action=add&id=<?php echo $row["id"]; ?>" method="post">
 		<div class="container-fluid">
-			<div style="border-bottom: 1px solid #ddd;"><p style="margin-bottom: 0;">Switches/Sockets</p></div>
+            <div style="border-bottom: 1px solid #ddd;"><p style="margin-bottom: 0;">Switches/Sockets</p></div>
+            
             <ul class="list-group">
             <li class="list-group-item" *ngFor="let items of itemList">
 				<div id="item" class="row">
-	<div id="item-img"><img src=""></div>
-	<div id="item-desc"><p>{{ itemdetails.name }}</p><p>{{ itemdetails.cost | currency:'INR'}}</p></div>
+	<div id="item-img"><img src="<?php echo $row["image"]; ?>"></div>
+	<div id="item-desc"><p><input name="name" value="<?php echo $row["name"]; ?>" /></p><p><input name="price" value="<?php echo $row["price"]; ?>" /></p></div>
 	<div id="quantity">
-    <button id="addtocart-btn" (click)="handelerAddToCart()" *ngIf="quantity===0">Add to cart</button>
-        <form *ngIf="quantity>0">
+    <button name="addtocart" id="addtocart-btn" (click)="handelerAddToCart()" *ngIf="quantity===0">Add to cart</button>
+        <!-- <form *ngIf="quantity>0"> -->
             <div class="row">
                  <div class="value-button" id="decrease" (click)="decreseItem()" value="Decrease Value" >-</div>
-                 <div><input type="number" id="number" value="{{quantity}}" /></div>
+                 <div><input name="number" type="number" id="number" value="1" /></div>
                  <div class="value-button" id="increase" (click)="handelerAddToCart()" value="Increase Value">+</div>
             </div>
-        </form>
+        <!-- </form> -->
     </div>
+</form>
+    <?php  
+                     
+                }  
+    ?> 
     
 </div>
 			</li>
@@ -457,24 +613,49 @@ color: purple;
 </div>
 </div>		    
 </div>
+
+        <!-- ======================= Cart Section ====================== -->
 			<div class="col-lg-3">
 				<div id="cart">
 		<div id="cart-nav"><h3>Cart Items</h3></div>
+       
 		<div id="items-area">
-		<div class="alert alert-info" *ngIf="cartItems.length === 0">No Items!!!!!</div>
+		<div class="alert alert-info" *ngIf="cartItems.length === 0">Your's Cart</div>
 		<div *ngIf="cartItems.length > 0">
 			<ul class="list-group">
 				<li class="list-group-item" *ngFor="let item of cartItems">
-					<div id="cart-items"><strong>{{cartItem.productName}}X{{cartItem.qty}}.............{{cartItem.cost | currency:'INR' }}</strong></div>
+               
+                           <?php   
+                          if(!empty($_SESSION["shopping_cart"]))  
+                          {  
+                              
+                               foreach($_SESSION["shopping_cart"] as $keys => $values)  
+                               {  
+                    ?>  
+					<p id="cart-items"><strong><?php echo $values["item_name"]; ?> X { <?php echo $values["item_quantity"]; ?>}.............{ <?php echo $values["item_price"]; ?>
+                     }
+                     
+                     <td><a href="/Fiapy-main/electrician.php?action=delete&id=<?php echo $values["item_id"]; ?>"><span class="text-danger">Remove</span></a></td>  
+                    <?php  
+                                   
+                                    $total = $total + ($values["item_quantity"] * $values["item_price"]);  
+                               }  
+                          ?>  
+                    </strong></div>
 				</li>
 			</ul>
 			</div>
 		</div>
-	<button type="button" class="btn btn-success" id="checkout"><strong>CheckOut</strong>{{cartTotal | currency : 'INR' }}</button>
+        
+	<button type="button" class="btn btn-success" id="checkout"><strong>CheckOut</strong>{<?php echo number_format($total, 2); ?>}</button>
+    <?php  
+                            }
+    ?>  
 </div>
 			</div>
 		</div>
 	</div>
+   
 </section>
 
 

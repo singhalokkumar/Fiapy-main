@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 19, 2020 at 01:38 PM
+-- Generation Time: Jul 25, 2020 at 05:20 PM
 -- Server version: 10.4.11-MariaDB
 -- PHP Version: 7.4.4
 
@@ -20,6 +20,56 @@ SET time_zone = "+00:00";
 --
 -- Database: `fiapy-db`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `location`
+--
+
+CREATE TABLE `location` (
+  `sno` int(10) NOT NULL,
+  `locality` varchar(25) NOT NULL,
+  `city` varchar(10) NOT NULL,
+  `state` varchar(10) NOT NULL,
+  `country` varchar(15) NOT NULL,
+  `pin` varchar(8) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `location`
+--
+
+INSERT INTO `location` (`sno`, `locality`, `city`, `state`, `country`, `pin`) VALUES
+(1, 'Helloe Road', 'Ranchi', 'Jharkhand', 'India', '834432'),
+(2, 'Railway Station', 'Ranchi', 'Jahrkahnd', 'India', '832392'),
+(3, 'Civil Road', 'Ranchi', 'Jharkhand', 'India', '434545'),
+(4, 'Railway Station', 'Mumbai', 'Maharastra', 'India', '738229');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `product`
+--
+
+CREATE TABLE `product` (
+  `id` int(11) NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `image` varchar(255) NOT NULL,
+  `price` double(10,2) NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `product`
+--
+
+INSERT INTO `product` (`id`, `name`, `image`, `price`) VALUES
+(1, 'Switch/Socket', 'switch.jpg', 100.00),
+(2, 'Fan', 'switch.jpg', 299.00),
+(3, 'light', 'switch.jpg', 125.00),
+(4, 'Fuse', 'switch.jpg', 145.00),
+(5, 'wiring', 'switch.jpg', 115.00),
+(6, 'Others', 'switch.jpg', 100.00);
 
 -- --------------------------------------------------------
 
@@ -99,11 +149,24 @@ INSERT INTO `user-registration` (`SNo`, `firstname`, `lastname`, `phone`, `email
 (6, 'Sameer', 'Kumar', '9145678765', 'sameer@gmail.com', 'sameerkumar'),
 (36, 'dskdsk', 'kdkskdk', '8382838', 'ds@gmail.com', 'dkskdsd'),
 (37, 'kumar', 'k', '29929', 'jsj@gmail.com', 'ksk'),
-(38, 'Akk', 'kskks', '8382328', 'sjsj@gmail.com', 'idsds');
+(38, 'Akk', 'kskks', '8382328', 'sjsj@gmail.com', 'idsds'),
+(39, 'rohit', 'kumar', '8281281', 'rohit@gmail.com', 'rohit');
 
 --
 -- Indexes for dumped tables
 --
+
+--
+-- Indexes for table `location`
+--
+ALTER TABLE `location`
+  ADD PRIMARY KEY (`sno`);
+
+--
+-- Indexes for table `product`
+--
+ALTER TABLE `product`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `prof-registration`
@@ -128,6 +191,18 @@ ALTER TABLE `user-registration`
 --
 
 --
+-- AUTO_INCREMENT for table `location`
+--
+ALTER TABLE `location`
+  MODIFY `sno` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
+-- AUTO_INCREMENT for table `product`
+--
+ALTER TABLE `product`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+
+--
 -- AUTO_INCREMENT for table `prof-registration`
 --
 ALTER TABLE `prof-registration`
@@ -143,7 +218,7 @@ ALTER TABLE `service`
 -- AUTO_INCREMENT for table `user-registration`
 --
 ALTER TABLE `user-registration`
-  MODIFY `SNo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=39;
+  MODIFY `SNo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=40;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
