@@ -25,8 +25,15 @@
 				<div class="btn-group ">
 					<button type="button" class="btn btn-primary-outline" style="color: white !important;" onclick="openproflogin()"><i class="fas fa-hammer"></i>  Register as Professional</button>
 					<button type="button" class="btn btn-primary-outline" style="color: white !important;" onclick="openlogin()"><i class="far fa-user"></i> 
-
-					Login
+					<?php
+							if($_SESSION['num1']){
+								echo "Welcome ". '<strong>' . $_SESSION['email'] . '</strong>';
+							}
+							else {
+								echo "Login";
+							}
+					?>
+				
 				
 				</button>
 				</div>
@@ -476,18 +483,27 @@
 	<div id="back">
 		<div  id="box" class="wrapper">
 			<button id="btn-close" onclick="closefrgt()"><i class="fa fa-times" aria-hidden="true"></i></button>
+
+			
+			<!-- End API Call -->
 			<h1>Forgot Password</h1>
+			<form action="/Fiapy-main/verifyOtp.php" method="post">
 			<div id="forgot">
-				<p><strong>Enter Your Registered Email ID</strong></p>
-				<input type="Email" name="Email" placeholder="Email" id="ep"><br>
+				<p><strong>Enter Your Registered Mobile No.</strong></p>
+				<!-- <input type="Email" name="Email" placeholder="Email" id="ep"> -->
+				<input type="text" name="mobile" placeholder="Enter Valid Mobile No." id="ep" maxlength="10">
+				<br>
 				<button class="btn btn-success" name="Login" onclick="openfrgtotp()">Send Code</button><br><br>
 				<a onclick="openlogin()"><strong>Return to Login</strong></a>
 			</div>
+		</form>
+		<form action="/Fiapy-main/verifyOtp.php" method="post">
 			<div id="frgt-otp">
 				<p><strong>An OTP has been sent to your mobile no.</strong></p>
 				<input type="password" name="OTP" placeholder="OTP" id="ep"><br>
 				<button class="btn btn-success" name="otpsubmit">Submit</button><br><br>
 			</div>
+		</form>
 		</div>
 	</div>
 </div>
@@ -544,17 +560,26 @@
 		<div  id="box" class="wrapper">
 			<button id="btn-close" onclick="closeproffrgt()"><i class="fa fa-times" aria-hidden="true"></i></button>
 			<h1>Forgot Password</h1>
+
+			<!-- <form action="/Fiapy-main/verifyOtp.php" method="post"> -->
 			<div id="prof-forgot">
-				<p><strong>Enter Your Registered Email ID</strong></p>
-				<input type="Email" name="Email" placeholder="Email" id="ep"><br>
+				<p><strong>Enter Your Registered Mobile No.</strong></p>
+				<!-- <input type="Email" name="Email" placeholder="Email" id="ep"><br> -->
+				<input type="text" name="mobile" placeholder="Enter Valid Mobile No." id="ep" maxlength="10">
+				<br>
 				<button class="btn btn-success" name="Login" onclick="openproffrgtotp()">Send Code</button><br><br>
 				<a onclick="openproflogin()"><strong>Return to Login</strong></a>
 			</div>
+		<!-- </form> -->
+
+		<!-- <form action="/Fiapy-main/verifyOtp.php" method="post"> -->
 			<div id="prof-frgt-otp">
 				<p><strong>An OTP has been sent to your mobile no.</strong></p>
 				<input type="password" name="OTP" placeholder="OTP" id="ep"><br>
 				<button class="btn btn-success" name="otpsubmit">Submit</button><br><br>
 			</div>
+		<!-- </form> -->
+
 		</div>
 	</div>
 </div>

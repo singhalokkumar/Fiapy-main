@@ -5,7 +5,7 @@
 				require('textlocal.class.php');
 				
 
-				$textlocal = new Textlocal(false, false, '/Qt6x9ynjgk-P1o43ptd51IgO4YjyvyyVvzWC62YSj');
+				$textlocal = new Textlocal(false, false, '1q+50mkl6+k-Fs0IbsTNfKQ3XIDV1TKsyl8jxKzZee');
 
                 $numbers = array($_POST['mobile']);
 

@@ -2,12 +2,10 @@
 
  session_start();  
  $total = 0;
- $quantity = 0;
  $connect = mysqli_connect("localhost", "root", ""); 
 
  if(isset($_POST["addtocart"]))  
  {  
-     $quantity = $quantity + 1;
     if(isset($_SESSION["shopping_cart"]))  
     {  
         
@@ -25,7 +23,7 @@
         }  
         else  
         {  
-            //  echo '<script>alert("Item Already Added")</script>';  
+             echo '<script>alert("Item Already Added")</script>';  
              echo '<script>window.location="electrician.php"</script>';  
         }  
     }
@@ -50,7 +48,7 @@
                 if($values["item_id"] == $_GET["id"])  
                 {  
                      unset($_SESSION["shopping_cart"][$keys]);  
-                    //  echo '<script>alert("Item Removed")</script>';  
+                     echo '<script>alert("Item Removed")</script>';  
                      echo '<script>window.location="electrician.php"</script>';  
                 }  
            }  
@@ -134,14 +132,11 @@ color: purple;
     /*======================items============================*/
     #item{
     height: 100px;
-    width: 500px; 
+    width: 600px; 
     border: 1px solid #ddd; 
     margin-top: 10px; 
     margin-left: 0px; 
     padding-left: 20px;
-    }
-    #item-box{
-        width:550px;
     }
     #item-img{
     display: inline;
@@ -158,7 +153,6 @@ color: purple;
     display: inline; 
     padding-left: 20px;
     padding-top: 20px;
-    margin-right:50px;
     }
     #item-desc>p{
     margin-bottom: 0;
@@ -262,7 +256,7 @@ color: purple;
         background: transparent;
     }
     #checkout{
-    width: 196%;
+    width: 100%;
     height: 50px; 
     margin-top: 10px; 
     margin-right: 10px;
@@ -272,7 +266,7 @@ color: purple;
         height: 30px;
         border-bottom: 1px solid #ddd;
         padding-left: 10px;
-        color: black;
+        color: white;
         margin: 10px;
         }
 </style>
@@ -381,7 +375,7 @@ color: purple;
 
         <!-- ========================Components================== -->
 <div class="row" data-spy="scroll" data-target="#navbar-orders-now-status" data-offset="50" style="height: 450px; overflow-y: scroll; background-color:white">
-    <div class="col-12" style="width: 600px; margin-top: 20px;">
+    <div class="col-12">
         <h4 id="SECTION1"></h4>
         <?php
                  $query = "SELECT * FROM `fiapy-db` . `product` where id = 1";  
@@ -389,27 +383,29 @@ color: purple;
                  if(mysqli_num_rows($result) > 0)  
                 {  
                      $row = mysqli_fetch_assoc($result)
+                     
+                        
+               
         ?>
          <form action="/Fiapy-main/electrician.php?action=add&id=<?php echo $row["id"]; ?>" method="post">
         <div class="container-fluid">
 			<div style="border-bottom: 1px solid #ddd;"><p style="margin-bottom: 0;">Switches/Sockets</p></div>
             <ul class="list-group">
-            <li class="list-group-item" id="item-box">
+            <li class="list-group-item" *ngFor="let items of itemList">
             	<div id="item" class="row">
-                <div id="item-img"><img src=""></div>
-                <div id="item-desc"><p><input style="border: none;" name="name" value="<?php echo $row["name"]; ?>" /></p><p><input style="border: none;" name="price" value="<?php echo $row["price"]; ?>" /></p></div>
-	            <div id="quantity">
-                    
-                <button name="addtocart" id="addtocart-btn">Add to cart</button>
-                    <form>
-                        <div class="row">
-                            <div class="value-button" id="decrease" onclick="decrease()" value="Decrease Value" >-</div>
-                            <div><input name="number" type="number" id="number" value="1" /></div>
-                            <div class="value-button" id="increase" onclick="increase()" value="Increase Value">+</div>
-                        </div>
-                    </form>
-                </div>
-                </form>
+	<div id="item-img"><img src=""></div>
+	<div id="item-desc"><p><input name="name" value="<?php echo $row["name"]; ?>" /></p><p><input name="price" value="<?php echo $row["price"]; ?>" /></p></div>
+	<div id="quantity">
+    <button name="addtocart" id="addtocart-btn" (click)="handelerAddToCart()" *ngIf="quantity===0">Add to cart</button>
+        <!-- <form *ngIf="quantity>0"> -->
+            <div class="row">
+                 <div class="value-button" id="decrease" (click)="decreseItem()" value="Decrease Value" >-</div>
+                 <div><input name="number" type="number" id="number" value="{{quantity}}" /></div>
+                 <div class="value-button" id="increase" (click)="handelerAddToCart()" value="Increase Value">+</div>
+            </div>
+        <!-- </form> -->
+    </div>
+    </form>
     <?php  
                      
                 }  
@@ -425,30 +421,34 @@ color: purple;
                  if(mysqli_num_rows($result) > 0)  
                 {  
                      $row = mysqli_fetch_assoc($result)
-          ?>
+                     
+                        
+               
+        ?>
          <form action="/Fiapy-main/electrician.php?action=add&id=<?php echo $row["id"]; ?>" method="post">
         <div class="container-fluid">
 			<div style="border-bottom: 1px solid #ddd;"><p style="margin-bottom: 0;">Switches/Sockets</p></div>
             <ul class="list-group">
-            <li class="list-group-item" id="item-box">
+            <li class="list-group-item" *ngFor="let items of itemList">
 				<div id="item" class="row">
-                <div id="item-img"><img src=""></div>
-                <div id="item-desc"><p><input style="border: none;" name="name" value="<?php echo $row["name"]; ?>" /></p><p><input style="border: none;" name="price" value="<?php echo $row["price"]; ?>" /></p></div>
-	            <div id="quantity">
-                <button name="addtocart" id="addtocart-btn" (click)="handelerAddToCart()" *ngIf="quantity===0">Add to cart</button>
-                    <form>
-                        <div class="row">
-                            <div class="value-button" id="decrease"  onclick="decrease()"   value="Decrease Value" >-</div>
-                            <div><input name="number" type="number" id="number" value="1" /></div>
-                            <div class="value-button" id="increase"  onclick="increase()"  value="Increase Value">+</div>
-                        </div>
-                    </form>
-                </div>
-                </form>
-                <?php  
-                            }  
-                ?> 
+	<div id="item-img"><img src=""></div>
+	<div id="item-desc"><p><input name="name" value="<?php echo $row["name"]; ?>" /></p><p><input name="price" value="<?php echo $row["price"]; ?>" /></p></div>
+	<div id="quantity">
+    <button name="addtocart" id="addtocart-btn" (click)="handelerAddToCart()" *ngIf="quantity===0">Add to cart</button>
+        <!-- <form *ngIf="quantity>0"> -->
+            <div class="row">
+                 <div class="value-button" id="decrease" (click)="decreseItem()" value="Decrease Value" >-</div>
+                 <div><input name="number" type="number" id="number" value="{{quantity}}" /></div>
+                 <div class="value-button" id="increase" (click)="handelerAddToCart()" value="Increase Value">+</div>
             </div>
+        <!-- </form> -->
+    </div>
+    </form>
+    <?php  
+                     
+                }  
+    ?> 
+</div>
 			</li>
             </ul>
 		</div>
@@ -467,26 +467,26 @@ color: purple;
         <div class="container-fluid">
 			<div style="border-bottom: 1px solid #ddd;"><p style="margin-bottom: 0;">Switches/Sockets</p></div>
             <ul class="list-group">
-            <li class="list-group-item" id="item-box">
+            <li class="list-group-item" *ngFor="let items of itemList">
 				<div id="item" class="row">
-                <div id="item-img"><img src=""></div>
-                <div id="item-desc"><p><input style="border: none;" name="name" value="<?php echo $row["name"]; ?>" /></p><p><input style="border: none;" style="border: none;" name="price" value="<?php echo $row["price"]; ?>" /></p></div>
-	            <div id="quantity">
-                <button name="addtocart" id="addtocart-btn" (click)="handelerAddToCart()" *ngIf="quantity===0">Add to cart</button>
-                    <!-- <form *ngIf="quantity>0"> -->
-                        <div class="row">
-                            <div class="value-button" id="decrease" (click)="decreseItem()" value="Decrease Value" >-</div>
-                            <div><input name="number" type="number" id="number" value="1" /></div>
-                            <div class="value-button" id="increase" (click)="handelerAddToCart()" value="Increase Value">+</div>
-                        </div>
-                    <!-- </form> -->
-                </div>
-                </form>
-                <?php  
-                                
-                            }  
-                ?> 
+	<div id="item-img"><img src=""></div>
+	<div id="item-desc"><p><input name="name" value="<?php echo $row["name"]; ?>" /></p><p><input name="price" value="<?php echo $row["price"]; ?>" /></p></div>
+	<div id="quantity">
+    <button name="addtocart" id="addtocart-btn" (click)="handelerAddToCart()" *ngIf="quantity===0">Add to cart</button>
+        <!-- <form *ngIf="quantity>0"> -->
+            <div class="row">
+                 <div class="value-button" id="decrease" (click)="decreseItem()" value="Decrease Value" >-</div>
+                 <div><input name="number" type="number" id="number" value="{{quantity}}" /></div>
+                 <div class="value-button" id="increase" (click)="handelerAddToCart()" value="Increase Value">+</div>
             </div>
+        <!-- </form> -->
+    </div>
+    </form>
+    <?php  
+                     
+                }  
+    ?> 
+</div>
 			</li>
             </ul>
 		</div>
@@ -505,26 +505,26 @@ color: purple;
 		<div class="container-fluid">
 			<div style="border-bottom: 1px solid #ddd;"><p style="margin-bottom: 0;">Switches/Sockets</p></div>
             <ul class="list-group">
-            <li class="list-group-item" id="item-box">
+            <li class="list-group-item" *ngFor="let items of itemList">
 				<div id="item" class="row">
-                <div id="item-img"><img src=""></div>
-                <div id="item-desc"><p><input style="border: none;" name="name" value="<?php echo $row["name"]; ?>" /></p><p><input style="border: none;" name="price" value="<?php echo $row["price"]; ?>" /></p></div>
-	            <div id="quantity">
-                <button name="addtocart" id="addtocart-btn" (click)="handelerAddToCart()" *ngIf="quantity===0">Add to cart</button>
-                    <!-- <form *ngIf="quantity>0"> -->
-                        <div class="row">
-                            <div class="value-button" id="decrease" (click)="decreseItem()" value="Decrease Value" >-</div>
-                            <div><input name="number" type="number" id="number" value="1" /></div>
-                            <div class="value-button" id="increase" (click)="handelerAddToCart()" value="Increase Value">+</div>
-                        </div>
-                    <!-- </form> -->
-                </div>
-                </form>
-                <?php  
-                                
-                            }  
-                ?> 
+	<div id="item-img"><img src=""></div>
+	<div id="item-desc"><p><input name="name" value="<?php echo $row["name"]; ?>" /></p><p><input name="price" value="<?php echo $row["price"]; ?>" /></p></div>
+	<div id="quantity">
+    <button name="addtocart" id="addtocart-btn" (click)="handelerAddToCart()" *ngIf="quantity===0">Add to cart</button>
+        <!-- <form *ngIf="quantity>0"> -->
+            <div class="row">
+                 <div class="value-button" id="decrease" (click)="decreseItem()" value="Decrease Value" >-</div>
+                 <div><input name="number" type="number" id="number" value="{{quantity}}" /></div>
+                 <div class="value-button" id="increase" (click)="handelerAddToCart()" value="Increase Value">+</div>
             </div>
+        <!-- </form> -->
+    </div>
+    </form>
+    <?php  
+                     
+                }  
+    ?> 
+</div>
 			</li>
             </ul>
 		</div>
@@ -543,34 +543,33 @@ color: purple;
 		<div class="container-fluid">
 			<div style="border-bottom: 1px solid #ddd;"><p style="margin-bottom: 0;">Switches/Sockets</p></div>
             <ul class="list-group">
-            <li class="list-group-item" id="item-box">
+            <li class="list-group-item" *ngFor="let items of itemList">
 				<div id="item" class="row">
-                <div id="item-img"><img src=""></div>
-                <div id="item-desc"><p><input style="border: none;" name="name" value="<?php echo $row["name"]; ?>" /></p><p><input style="border: none;" name="price" value="<?php echo $row["price"]; ?>" /></p></div>
-	            <div id="quantity">
-                <button name="addtocart" id="addtocart-btn" (click)="handelerAddToCart()" *ngIf="quantity===0">Add to cart</button>
-                    <!-- <form *ngIf="quantity>0"> -->
-                        <div class="row">
-                            <div class="value-button" id="decrease"  (click)="decreseItem()" value="Decrease Value" >-</div>
-                            <div><input name="number" type="number" id="number" value="1" /></div>
-                            <div class="value-button" id="increase" (click)="handelerAddToCart()" value="Increase Value">+</div>
-                        </div>
-                    <!-- </form> -->
-                </div>
-                </form>
-                <?php  
-                                
-                            }  
-                ?> 
-
-
+	<div id="item-img"><img src=""></div>
+	<div id="item-desc"><p><input name="name" value="<?php echo $row["name"]; ?>" /></p><p><input name="price" value="<?php echo $row["price"]; ?>" /></p></div>
+	<div id="quantity">
+    <button name="addtocart" id="addtocart-btn" (click)="handelerAddToCart()" *ngIf="quantity===0">Add to cart</button>
+        <!-- <form *ngIf="quantity>0"> -->
+            <div class="row">
+                 <div class="value-button" id="decrease" (click)="decreseItem()" value="Decrease Value" >-</div>
+                 <div><input name="number" type="number" id="number" value="{{quantity}}" /></div>
+                 <div class="value-button" id="increase" (click)="handelerAddToCart()" value="Increase Value">+</div>
             </div>
+        <!-- </form> -->
+    </div>
+     </form>
+    <?php  
+                     
+                }  
+    ?> 
+
+
+</div>
 			</li>
             </ul>
 		</div>
         <h4 id="SECTION6"></h4>
         <?php
-
                  $query = "SELECT * FROM `fiapy-db` . `product` where id = 6";  
                  $result = mysqli_query($connect, $query);  
                  if(mysqli_num_rows($result) > 0)  
@@ -586,28 +585,27 @@ color: purple;
             <div style="border-bottom: 1px solid #ddd;"><p style="margin-bottom: 0;">Switches/Sockets</p></div>
             
             <ul class="list-group">
-            <li class="list-group-item" id="item-box">
+            <li class="list-group-item" *ngFor="let items of itemList">
 				<div id="item" class="row">
-                <div id="item-img"><img src="<?php echo $row["image"]; ?>"></div>
-                <div id="item-desc"><p><input style="border: none;" name="name" value="<?php echo $row["name"]; ?>" /></p><p><input style="border: none;" name="price" value="<?php echo $row["price"]; ?>" /></p></div>
-	            <div id="quantity">
-
-                <button name="addtocart" id="addtocart-btn" (click)="handelerAddToCart()" *ngIf="quantity===0">Add to cart</button>
-                    <form>
-                    <div class="row">
-                        <div class="value-button" id="decrease"  onclick="decrease()" value="Decrease Value" >-</div>
-                        <div><input name="number" type="number" id="number" value="0" ></div>
-                        <div class="value-button" id="increase"  onclick="increase()" value="Increase Value">+</div>
-                    </div>
-                    </form>
-                </div>
-            </form>
-                <?php  
-                                
-                            }  
-                ?> 
-                
+	<div id="item-img"><img src="<?php echo $row["image"]; ?>"></div>
+	<div id="item-desc"><p><input name="name" value="<?php echo $row["name"]; ?>" /></p><p><input name="price" value="<?php echo $row["price"]; ?>" /></p></div>
+	<div id="quantity">
+    <button name="addtocart" id="addtocart-btn" (click)="handelerAddToCart()" *ngIf="quantity===0">Add to cart</button>
+        <!-- <form *ngIf="quantity>0"> -->
+            <div class="row">
+                 <div class="value-button" id="decrease" (click)="decreseItem()" value="Decrease Value" >-</div>
+                 <div><input name="number" type="number" id="number" value="{{quantity}}" /></div>
+                 <div class="value-button" id="increase" (click)="handelerAddToCart()" value="Increase Value">+</div>
             </div>
+        <!-- </form> -->
+    </div>
+</form>
+    <?php  
+                     
+                }  
+    ?> 
+    
+</div>
 			</li>
             </ul>
 		</div>
@@ -619,10 +617,10 @@ color: purple;
         <!-- ======================= Cart Section ====================== -->
 			<div class="col-lg-3">
 				<div id="cart">
-		<div id="cart-nav"><h3>Your Cart</h3></div>
+		<div id="cart-nav"><h3>Cart Items</h3></div>
        
 		<div id="items-area">
-		<div class="alert alert-info" *ngIf="cartItems.length === 0">Your Cart</div>
+		<div class="alert alert-info" *ngIf="cartItems.length === 0">No Items!!!!!</div>
 		<div *ngIf="cartItems.length > 0">
 			<ul class="list-group">
 				<li class="list-group-item" *ngFor="let item of cartItems">
@@ -630,14 +628,15 @@ color: purple;
                            <?php   
                           if(!empty($_SESSION["shopping_cart"]))  
                           {  
+                              
                                foreach($_SESSION["shopping_cart"] as $keys => $values)  
                                {  
                     ?>  
-					<p id="cart-items"><strong><?php echo $values["item_name"]; ?> X  <?php echo $values["item_quantity"]; ?> =  <?php echo $values["item_price"]; ?>
-                     
-                     
+					<div id="cart-items"><strong><?php echo $values["item_name"]; ?> X { <?php echo $values["item_quantity"]; ?>}.............{ <?php echo $values["item_price"]; ?>
+                     }
                      <td><a href="/Fiapy-main/electrician.php?action=delete&id=<?php echo $values["item_id"]; ?>"><span class="text-danger">Remove</span></a></td>  
                     <?php  
+                                   
                                     $total = $total + ((int)$values["item_quantity"] * (int)$values["item_price"]);  
                                }  
                           ?>  
@@ -655,40 +654,10 @@ color: purple;
 			</div>
 		</div>
 	</div>
-    
+   
 </section>
 
-<button type="button" onclick="increase()">+</button>
-        <input type="number" id="number" value="0">
-        <button type="button" onclick="decrease()">-</button>
 
-        <script>
-            function increase(){
-                
-                var textBox = document.getElementById("number");
-                textBox.value++;
-                
-            }    
-            function decrease(){
-              var textBox = document.getElementById("number");
-                textBox.value--;
-            }
-        </script>
-<script>
-
-            function increase(){
-                
-                var textBox = document.getElementById("number");
-                textBox.value++;
-                
-            }    
-            function decrease(){
-              var textBox = document.getElementById("number");
-                textBox.value--;
-            }
-    
-
-</script>
 
 
   <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>

@@ -42,6 +42,7 @@ session_start();
 
 		if($num1 == 1){
 			$_SESSION['email'] = $name;
+			$_SESSION['num1'] = $num1;
 		}
 
 
