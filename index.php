@@ -41,34 +41,90 @@
 		</nav>
 		<div class="input-group" id="search">
 		<form action="index.php" method="post">
-			  <input type="text" name="q" class="form-control" aria-label="Text input with segmented dropdown button" placeholder="Search for a service" id="search-bar">
+			  <input type="text" name="q"  placeholder="Search for a service" id="search-bar">
+			  <div id="service">
+			  
+			  <?php
+$conn = mysqli_connect("localhost", "root", "");
+
+// $name = $_POST['name'];
+
+// 	if(empty($name)){
+	
+// }
+	// else{
+			$make = '<h4>No match found!</h4>';
+
+			$sele = "SELECT * FROM `fiapy-db` . `service`  ";
+
+			$result = mysqli_query($conn,$sele);
+	
+			if($row = mysqli_num_rows($result) > 0){
+
+				while($row = mysqli_fetch_assoc($result)){
+				echo '<h4><a href="#" >'.$row['title'];  echo '</a></h4>';
+				// echo ' '.$row['description'];
+				// echo '<p>'.$row['description'] .'</p>'
+		
+			}
+}
+// else{
+// 		echo'<h2> Search Result</h2>';
+// 		print ($make);
+// }
+	mysqli_free_result($result);
+	mysqli_close($conn);
+// }
+// }
+
+?>
+			  </div>
 		</form>
 
-  			<button type="button" class="btn btn-outline-secondary dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id="drp-btn">
-      			<span class="sr-only">Toggle Dropdown</span>
-    		</button>
-  			<div class="input-group-append">
-    			<div class="dropdown-menu">
-      				<a class="dropdown-item" href="#">Action</a>
-      				<a class="dropdown-item" href="#">Another action</a>
-      				<a class="dropdown-item" href="#">Something else here</a>
-      				<div role="separator" class="dropdown-divider"></div>
-      				<a class="dropdown-item" href="#">Separated link</a>
-    			</div>
-  			</div>
-  			<input type="text" class="form-control" aria-label="Text input with segmented dropdown button" placeholder="Search for a service" id="search-bar">
-  			<button type="button" class="btn btn-outline-secondary dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id="drp-btn">
-      			<span class="sr-only">Toggle Dropdown</span>
-    		</button>
-  			<div class="input-group-append">
-    			<button type="button" id="search-btn">Search</button>
-    			<div class="dropdown-menu">
-      				<a class="dropdown-item" href="#">Action</a>
-      				<a class="dropdown-item" href="#">Another action</a>
-      				<a class="dropdown-item" href="#">Something else here</a>
-      				<div role="separator" class="dropdown-divider"></div>
-      				<a class="dropdown-item" href="#">Separated link</a>
-    			</div>
+  			
+  			<input type="text" class="form-control" aria-label="Text input with segmented dropdown button" placeholder="Search for a location" id="search-bar">
+  			<div id="location">
+			  
+				  <button type="button" id="search-btn">Search</button>
+			  <?php
+			$conn = mysqli_connect("localhost", "root", "");
+
+			// $name = $_POST['name'];
+
+			// 	if(empty($name)){
+				
+			// }
+				// else{
+			$make = '<h4>No match found!</h4>';
+
+			$sele = "SELECT * FROM `fiapy-db` . `location`  ";
+
+			$result = mysqli_query($conn,$sele);
+	
+			if($row = mysqli_num_rows($result) > 0){
+
+				while($row = mysqli_fetch_assoc($result)){
+					echo '<p><a href="#">'.$row['locality']; 
+                    echo ', '.$row['city'];
+                    echo ', '.$row['state'];
+                    echo ', '.$row['country'];
+                    echo ' - '.$row['pin'];
+    
+                    echo '</a></p>';
+		
+			}
+		}
+			// else{
+			// 		echo'<h2> Search Result</h2>';
+			// 		print ($make);
+			// }
+				mysqli_free_result($result);
+				mysqli_close($conn);
+			// }
+			// 
+			?>
+    			
+    			
   			</div>
 		</div>
 <!--           Service Block                 -->

@@ -45,25 +45,23 @@ a {
 <center><table>
 <tr>
 	<td>Search</td>
-	<td><input  type="text" name="name" size="100" placeholder="Search In Database!"></td>
-	<td><input id="submit" type="submit" name="submit"></td>
+	<!-- <td><input  type="text" name="name" size="100" placeholder="Search In Database!"></td>
+	<td><input id="submit" type="submit" name="submit"></td> -->
 </tr>
 
 </table>
 <?php
 $conn = mysqli_connect("localhost", "root", "");
 
+// $name = $_POST['name'];
 
-if(isset($_REQUEST['submit'])){
-$name = $_POST['name'];
-
-	if(empty($name)){
+// 	if(empty($name)){
 	
-}
-	else{
+// }
+	// else{
 			$make = '<h4>No match found!</h4>';
 
-			$sele = "SELECT * FROM `fiapy-db` . `service` WHERE title LIKE '%$name%' or description like '%$name%'  ";
+			$sele = "SELECT * FROM `fiapy-db` . `service`  ";
 
 			$result = mysqli_query($conn,$sele);
 	
@@ -76,14 +74,14 @@ $name = $_POST['name'];
 		
 			}
 }
-else{
-		echo'<h2> Search Result</h2>';
-		print ($make);
-}
+// else{
+// 		echo'<h2> Search Result</h2>';
+// 		print ($make);
+// }
 	mysqli_free_result($result);
 	mysqli_close($conn);
-}
-}
+// }
+// }
 
 ?>
 </center>
