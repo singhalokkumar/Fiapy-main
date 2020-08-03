@@ -25,13 +25,51 @@
 				<div class="btn-group ">
 					<button type="button" class="btn btn-primary-outline" style="color: white !important;" onclick="openproflogin()"><i class="fas fa-hammer"></i>  Register as Professional</button>
 					<button type="button" class="btn btn-primary-outline" style="color: white !important;" onclick="openlogin()"><i class="far fa-user"></i> 
+
 					<?php
-							if($_SESSION['num1']){
-								echo "Welcome ". '<strong>' . $_SESSION['email'] . '</strong>';
-							}
-							else {
-								echo "Login";
-							}
+					$result = false;
+							// if($_SESSION['num1']){
+							// 	echo "Welcome ". '<strong>' . $_SESSION['email'] . '</strong>';
+							// }
+							// else {
+							// 	echo "Login";
+							// }
+							// Set Connection Variables
+							include 'dbConnect.php';
+
+							// $username = "Login";
+							if(isset($_POST['Login'])){
+
+								$email = $_POST['email'];
+								$password = $_POST['password'];
+								
+								// Excute Sql Query
+								$sql = "select * from `fiapy-db` . `user-registration`  where email = '$email' && password = '$password' " ;
+								
+								$user = mysqli_query($con, $sql);
+								$num = mysqli_num_rows($user);
+
+								if (mysqli_num_rows($user) > 0) {
+									while ($row = mysqli_fetch_array($user)) {
+										  $username = $row['firstname'];
+										  $result = true;
+									}
+								 } else {
+										   $msg = "Can't Log in";
+										   header('location: index.php');
+										  
+								 }
+							   }
+							   else {
+								   echo"Login";
+							   }
+
+							   if($result){
+								echo "Welcome ". $username;
+							   }	
+								
+							  
+							
 					?>
 				
 				
@@ -104,7 +142,7 @@ $conn = mysqli_connect("localhost", "root", "");
 			if($row = mysqli_num_rows($result) > 0){
 
 				while($row = mysqli_fetch_assoc($result)){
-					echo '<p><a href="#">'.$row['locality']; 
+					echo '<p onClick="push()"><a href="/Fiapy-main/index.php">'.$row['locality']; 
                     echo ', '.$row['city'];
                     echo ', '.$row['state'];
                     echo ', '.$row['country'];
@@ -484,7 +522,7 @@ $conn = mysqli_connect("localhost", "root", "");
 <!------------------------coustomer-login------------------------------------------------>
 
 <div style="position: absolute;display: none;" id="login">
-	<form action="\Fiapy-main\login1.php" method="post">
+	<form action="\Fiapy-main\index.php" method="post">
 		<div id="back">
 			<div  id="box" class="center">
 				<button id="btn-close" onclick="closelogin()"><i class="fa fa-times" aria-hidden="true"></i></button>
@@ -736,11 +774,33 @@ function openfrgtotp() {
 
 
 
+
 </script>
 
   <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
 <script src="https://kit.fontawesome.com/5f35b5df4f.js" crossorigin="anonymous"></script>
+
+<script>
+	function push(){
+	<?php
+	$conn = mysqli_connect("localhost", "root", "");
+		$sql = " INSERT INTO `fiapy-db` . `ordersummary` (`order_id`, `user_id`, `total`, `customer_name`, `cart_id`, `location`) VALUES (NULL, '', '', '', '', ".
+		$row['locality'] . $row['city'].
+                $row['state'].
+                $row['country'].
+                    $row['pin'].
+		
+		"); ";
+
+		$result = mysqli_query($con, $sql);
+
+		$row = mysqli_num_rows($result);
+		echo $row;
+
+	?>
+}
+</script>
 </body>
 </html>
