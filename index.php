@@ -14,7 +14,7 @@
   <!-- <link rel="stylesheet" href="css\indexstyle.css"> -->
 </head>
 <body>
-	<section id="first">
+<section id="first">
 	<div class="container" id="head1">
 		<nav class="navbar navbar-light bg-light" id="nav">
   			<a class="navbar-brand" href="#" style="color: white !important;">
@@ -66,105 +66,13 @@
 
 							   if($result){
 								echo "Welcome ". $username;
-							   }	
-								
-							  
-							
+							   }
 					?>
-				
-				
 				</button>
 				</div>
 			</div>
 		</nav>
-		<div class="input-group" id="search">
-		<form action="index.php" method="post">
-			  <input type="text" name="q"  placeholder="Search for a service" id="search-bar">
-			  <div id="service">
-			  
-			  <?php
-$conn = mysqli_connect("localhost", "root", "");
-
-// $name = $_POST['name'];
-
-// 	if(empty($name)){
-	
-// }
-	// else{
-			$make = '<h4>No match found!</h4>';
-
-			$sele = "SELECT * FROM `fiapy-db` . `service`  ";
-
-			$result = mysqli_query($conn,$sele);
-	
-			if($row = mysqli_num_rows($result) > 0){
-
-				while($row = mysqli_fetch_assoc($result)){
-				echo '<h4><a href="#" >'.$row['title'];  echo '</a></h4>';
-				// echo ' '.$row['description'];
-				// echo '<p>'.$row['description'] .'</p>'
-		
-			}
-}
-// else{
-// 		echo'<h2> Search Result</h2>';
-// 		print ($make);
-// }
-	mysqli_free_result($result);
-	mysqli_close($conn);
-// }
-// }
-
-?>
-			  </div>
-		</form>
-
-  			
-  			<input type="text" class="form-control" aria-label="Text input with segmented dropdown button" placeholder="Search for a location" id="search-bar">
-  			<div id="location">
-			  
-				  <button type="button" id="search-btn">Search</button>
-			  <?php
-			$conn = mysqli_connect("localhost", "root", "");
-
-			// $name = $_POST['name'];
-
-			// 	if(empty($name)){
-				
-			// }
-				// else{
-			$make = '<h4>No match found!</h4>';
-
-			$sele = "SELECT * FROM `fiapy-db` . `location`  ";
-
-			$result = mysqli_query($conn,$sele);
-	
-			if($row = mysqli_num_rows($result) > 0){
-
-				while($row = mysqli_fetch_assoc($result)){
-					echo '<p onClick="push()"><a href="/Fiapy-main/index.php">'.$row['locality']; 
-                    echo ', '.$row['city'];
-                    echo ', '.$row['state'];
-                    echo ', '.$row['country'];
-                    echo ' - '.$row['pin'];
-    
-                    echo '</a></p>';
-		
-			}
-		}
-			// else{
-			// 		echo'<h2> Search Result</h2>';
-			// 		print ($make);
-			// }
-				mysqli_free_result($result);
-				mysqli_close($conn);
-			// }
-			// 
-			?>
-    			
-    			
-  			</div>
-		</div>
+	</div>
 <!--           Service Block                 -->
 		<div id="services">
 			<div class="row">
