@@ -27,7 +27,9 @@
 					<button type="button" class="btn btn-primary-outline" style="color: white !important;" onclick="openlogin()"><i class="far fa-user"></i> 
 
 					<?php
+					
 					$result = false;
+					$login = false;
 							// if($_SESSION['num1']){
 							// 	echo "Welcome ". '<strong>' . $_SESSION['email'] . '</strong>';
 							// }
@@ -35,7 +37,22 @@
 							// 	echo "Login";
 							// }
 							// Set Connection Variables
-							include 'dbConnect.php';
+							$server = "localhost";
+							$username = "root";
+							$password = "";
+							
+
+							// Create Connection 
+							$con = mysqli_connect($server,$username, $password);
+
+							// Check For Connection
+							if(!$con){
+								die("Connection Not Created Error in Backend Part");
+							}
+							else{
+								// echo "Connection Succesfully Created";
+                            }
+                            
 
 							// $username = "Login";
 							if(isset($_POST['Login'])){
@@ -44,14 +61,21 @@
 								$password = $_POST['password'];
 								
 								// Excute Sql Query
-								$sql = "select * from `fiapy-db` . `user-registration`  where email = '$email' && password = '$password' " ;
+								$sql = "select * from `fiapy_db` . `user-registration`  where email = '$email' && password = '$password' " ;
 								
 								$user = mysqli_query($con, $sql);
 								$num = mysqli_num_rows($user);
+								if($num){
+									$login = true;
+								}
 
 								if (mysqli_num_rows($user) > 0) {
 									while ($row = mysqli_fetch_array($user)) {
 										  $username = $row['firstname'];
+										  $_SESSION["firstname"] = $row['firstname'];
+										  $_SESSION['lastname'] = $row['lastname'];
+										  $_SESSION['phone'] = $row['phone'];
+										  $_SESSION['email'] = $row['email'];
 										  $result = true;
 									}
 								 } else {
@@ -65,15 +89,20 @@
 							   }
 
 							   if($result){
-								echo "Welcome ". $username;
+								echo  $username;
 							   }	
 								
-							  
+							//   echo $username;
 							
 					?>
 				
 				
 				</button>
+				
+				<button type="button" class="btn btn-primary-outline" style="color: white !important;" ><i class="fa fa-sign-out"></i>
+				<a style="color: white !important; text-decoration: none;" href="/Fiapy-main/logout.php">Logout</a>
+				</button>
+				
 				</div>
 			</div>
 		</nav>
@@ -93,7 +122,7 @@ $conn = mysqli_connect("localhost", "root", "");
 	// else{
 			$make = '<h4>No match found!</h4>';
 
-			$sele = "SELECT * FROM `fiapy-db` . `service`  ";
+			$sele = "SELECT * FROM `fiapy_db` . `service`  ";
 
 			$result = mysqli_query($conn,$sele);
 	
@@ -135,7 +164,7 @@ $conn = mysqli_connect("localhost", "root", "");
 				// else{
 			$make = '<h4>No match found!</h4>';
 
-			$sele = "SELECT * FROM `fiapy-db` . `location`  ";
+			$sele = "SELECT * FROM `fiapy_db` . `location`  ";
 
 			$result = mysqli_query($conn,$sele);
 	
@@ -536,19 +565,89 @@ $conn = mysqli_connect("localhost", "root", "");
 		</div>
 		</form>
 </div>
-                             
+
+                
 <div>
-	<?php
-	if (isset($_POST['create'])) {
-		echo 'submited';
+<a href="logout.php">Log Out</a>
+</div>
+
+
+<!-- Backend Starts Here -->
+<?php
+$insert = false;
+$registered = false;
+
+if(isset($_POST['firstname'])){
+
+	// Set Conncetion variables
+	$server = "localhost";
+	$username = "root";
+	$password = "";
+
+	// Create Connection 
+	$con = mysqli_connect($server,$username,$password);
+
+	// Check For The Conncection
+	if(!$con){
+		die("Connection is not created ". mysqli_connect_error());
+	}
+	// else {
+	// 	echo "Connection Created Succesfully";
+	// }
+
+	// Collect Post Variables
+	$firstname = $_POST['firstname'];
+	$lastname = $_POST['lastname'];
+	$phoneno = $_POST['phoneno'];
+	$email = $_POST['email'];
+	$password = $_POST['password'];
+
+	$sql;
+	
+	// Checking For Already Registered User
+	$s = "select * from `fiapy_db` . `user-registration`  where email = '$email' && phone = '$phoneno'  ";
+
+	$result = mysqli_query($con, $s);
+
+	// Check For The Matched Rows
+	$num = mysqli_num_rows($result);
+
+
+	if($num){
+		$registered = true;
 	}
 
+	// Excute The Sql Query
+	else{
+	$sql = "INSERT INTO `fiapy_db` . `user-registration` ( `firstname`, `lastname`, `phone`, `email`, `password`) VALUES ( '$firstname', '$lastname', '$phoneno', '$email', '$password');";
 
-	?>
-</div>
+    $insert = true;
+	
+    }
+    
+    if($insert){
+		// header('location: index.php');
+		
+		
+    }
+
+	// echo $sql;
+	if($con -> query($sql) == true){
+		
+	}
+	else{
+		// echo "Error Occured At Time Of Insertion";
+	}
+
+    // Close The Connection
+	$con -> close();
+}
+
+?>
+
 <div style="position: absolute; display: none;" id="registeration">
 
-	<form action="\Fiapy-main\registration.php" method="post">
+	<form action="\Fiapy-main\index.php" method="post">
 		<div id="back">
 			<div  id="box" class="center">
 				<button id="btn-close" onclick="closeregistration()"><i class="fa fa-times" aria-hidden="true"></i></button>
@@ -559,7 +658,7 @@ $conn = mysqli_connect("localhost", "root", "");
 					<input type="text" name="phoneno" placeholder="Phone No." id="ep" required="">
 					<input type="Email" name="email" placeholder="Email" id="ep" required="">
 					<input type="password" name="password" placeholder="password" id="ep" required=""><br>
-					<input type="Submit" class="btn btn-success" name="create" value="Create Account"><br><br>
+					<input onclick="popUp()" type="Submit" class="btn btn-success" name="create" value="Create Account"><br><br>
 				</div>
 				<!--            OTP Section               -->
 				<div id="otp">
@@ -621,6 +720,7 @@ $conn = mysqli_connect("localhost", "root", "");
 	</div>
 </form>
 </div>
+
 
 <div style="position: absolute; display: none;" id="prof-registeration">
 <form action="\Fiapy-main\prof-registration.php" method="post">
@@ -786,7 +886,7 @@ function openfrgtotp() {
 	function push(){
 	<?php
 	$conn = mysqli_connect("localhost", "root", "");
-		$sql = " INSERT INTO `fiapy-db` . `ordersummary` (`order_id`, `user_id`, `total`, `customer_name`, `cart_id`, `location`) VALUES (NULL, '', '', '', '', ".
+		$sql = " INSERT INTO `fiapy_db` . `ordersummary` (`order_id`, `user_id`, `total`, `customer_name`, `cart_id`, `location`) VALUES (NULL, '', '', '', '', ".
 		$row['locality'] . $row['city'].
                 $row['state'].
                 $row['country'].
@@ -801,6 +901,19 @@ function openfrgtotp() {
 
 	?>
 }
+</script>
+</script>
+<script src="/fiapy-main/sweetalert.min.js"></script>
+<script>
+function popUp(){
+		swal({
+		title: "Good job!",
+		text: "Succesfully Registered!",
+		timer: 19000,
+		icon: "success",
+		});
+}
+
 </script>
 </body>
 </html>
