@@ -10,6 +10,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="icon" type="image/x-icon" href="favicon.ico">
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
   <link rel="stylesheet" type="text/css" href="Fiapy-main/css/indexstyle.css">
   <!-- <link rel="stylesheet" href="css\indexstyle.css"> -->
 </head>
@@ -27,7 +28,9 @@
 					<button type="button" class="btn btn-primary-outline" style="color: white !important;" onclick="openlogin()"><i class="far fa-user"></i> 
 
 					<?php
+					
 					$result = false;
+					$login = false;
 							// if($_SESSION['num1']){
 							// 	echo "Welcome ". '<strong>' . $_SESSION['email'] . '</strong>';
 							// }
@@ -35,7 +38,22 @@
 							// 	echo "Login";
 							// }
 							// Set Connection Variables
-							include 'dbConnect.php';
+							$server = "localhost";
+							$username = "root";
+							$password = "";
+							
+
+							// Create Connection 
+							$con = mysqli_connect($server,$username, $password);
+
+							// Check For Connection
+							if(!$con){
+								die("Connection Not Created Error in Backend Part");
+							}
+							else{
+								// echo "Connection Succesfully Created";
+                            }
+                            
 
 							// $username = "Login";
 							if(isset($_POST['Login'])){
@@ -44,14 +62,21 @@
 								$password = $_POST['password'];
 								
 								// Excute Sql Query
-								$sql = "select * from `fiapy-db` . `user-registration`  where email = '$email' && password = '$password' " ;
+								$sql = "select * from `fiapy_db` . `user-registration`  where email = '$email' && password = '$password' " ;
 								
 								$user = mysqli_query($con, $sql);
 								$num = mysqli_num_rows($user);
+								if($num){
+									$login = true;
+								}
 
 								if (mysqli_num_rows($user) > 0) {
 									while ($row = mysqli_fetch_array($user)) {
 										  $username = $row['firstname'];
+										  $_SESSION["firstname"] = $row['firstname'];
+										  $_SESSION['lastname'] = $row['lastname'];
+										  $_SESSION['phone'] = $row['phone'];
+										  $_SESSION['email'] = $row['email'];
 										  $result = true;
 									}
 								 } else {
@@ -59,6 +84,7 @@
 										   header('location: index.php');
 										  
 								 }
+								 
 							   }
 							   else {
 								   echo"Login";
@@ -69,6 +95,11 @@
 							   }
 					?>
 				</button>
+				
+				<button type="button" class="btn btn-primary-outline" style="color: white !important;" ><i class="fa fa-sign-out"></i>
+				<a style="color: white !important; text-decoration: none;" href="/Fiapy-main/logout.php">Logout</a>
+				</button>
+				
 				</div>
 			</div>
 		</nav>
@@ -444,19 +475,89 @@
 		</div>
 		</form>
 </div>
-                             
+
+                
 <div>
-	<?php
-	if (isset($_POST['create'])) {
-		echo 'submited';
+<a href="logout.php">Log Out</a>
+</div>
+
+
+<!-- Backend Starts Here -->
+<?php
+$insert = false;
+$registered = false;
+
+if(isset($_POST['firstname'])){
+
+	// Set Conncetion variables
+	$server = "localhost";
+	$username = "root";
+	$password = "";
+
+	// Create Connection 
+	$con = mysqli_connect($server,$username,$password);
+
+	// Check For The Conncection
+	if(!$con){
+		die("Connection is not created ". mysqli_connect_error());
+	}
+	// else {
+	// 	echo "Connection Created Succesfully";
+	// }
+
+	// Collect Post Variables
+	$firstname = $_POST['firstname'];
+	$lastname = $_POST['lastname'];
+	$phoneno = $_POST['phoneno'];
+	$email = $_POST['email'];
+	$password = $_POST['password'];
+
+	$sql;
+	
+	// Checking For Already Registered User
+	$s = "select * from `fiapy_db` . `user-registration`  where email = '$email' && phone = '$phoneno'  ";
+
+	$result = mysqli_query($con, $s);
+
+	// Check For The Matched Rows
+	$num = mysqli_num_rows($result);
+
+
+	if($num){
+		$registered = true;
 	}
 
+	// Excute The Sql Query
+	else{
+	$sql = "INSERT INTO `fiapy_db` . `user-registration` ( `firstname`, `lastname`, `phone`, `email`, `password`) VALUES ( '$firstname', '$lastname', '$phoneno', '$email', '$password');";
 
-	?>
-</div>
+    $insert = true;
+	
+    }
+    
+    if($insert){
+		// header('location: index.php');
+		
+		
+    }
+
+	// echo $sql;
+	if($con -> query($sql) == true){
+		
+	}
+	else{
+		// echo "Error Occured At Time Of Insertion";
+	}
+
+    // Close The Connection
+	$con -> close();
+}
+
+?>
+
 <div style="position: absolute; display: none;" id="registeration">
 
-	<form action="\Fiapy-main\registration.php" method="post">
+	<form action="\Fiapy-main\index.php" method="post">
 		<div id="back">
 			<div  id="box" class="center">
 				<button id="btn-close" onclick="closeregistration()"><i class="fa fa-times" aria-hidden="true"></i></button>
@@ -467,7 +568,7 @@
 					<input type="text" name="phoneno" placeholder="Phone No." id="ep" required="">
 					<input type="Email" name="email" placeholder="Email" id="ep" required="">
 					<input type="password" name="password" placeholder="password" id="ep" required=""><br>
-					<input type="Submit" class="btn btn-success" name="create" value="Create Account"><br><br>
+					<input onclick="popUp()" type="Submit" class="btn btn-success" name="create" value="Create Account"><br><br>
 				</div>
 				<!--            OTP Section               -->
 				<div id="otp">
@@ -481,6 +582,7 @@
 	</form>
 </div>
 
+
 <div style="position: absolute;display: none;" id="frgt">
 	<div id="back">
 		<div  id="box" class="wrapper">
@@ -489,18 +591,19 @@
 			
 			<!-- End API Call -->
 			<h1>Forgot Password</h1>
-			<form action="/Fiapy-main/verifyOtp.php" method="post">
-			<div id="forgot">
+			<form  method="post" id="myForm">
+			<div id="forgot" class="first_box">
 				<p><strong>Enter Your Registered Mobile No.</strong></p>
 				<!-- <input type="Email" name="Email" placeholder="Email" id="ep"> -->
 				<input type="text" name="mobile" placeholder="Enter Valid Mobile No." id="ep" maxlength="10">
 				<br>
-				<button class="btn btn-success" name="Login" onclick="openfrgtotp()">Send Code</button><br><br>
+				<!-- <button class="btn btn-success" id="forgot" name="Login" onclick="openfrgtotp()" >Send Code</button><br><br> -->
+				<button  class="btn btn-success" id="forgot" name="Login" onclick="send_otp()" >Send Code</button><br><br>
 				<a onclick="openlogin()"><strong>Return to Login</strong></a>
 			</div>
 		</form>
-		<form action="/Fiapy-main/verifyOtp.php" method="post">
-			<div id="frgt-otp">
+		<form action="/Fiapy-main/index.php" method="post">
+			<div id="frgt-otp" class="second_box">
 				<p><strong>An OTP has been sent to your mobile no.</strong></p>
 				<input type="password" name="OTP" placeholder="OTP" id="ep"><br>
 				<button class="btn btn-success" name="otpsubmit">Submit</button><br><br>
@@ -529,6 +632,7 @@
 	</div>
 </form>
 </div>
+
 
 <div style="position: absolute; display: none;" id="prof-registeration">
 <form action="\Fiapy-main\prof-registration.php" method="post">
@@ -581,6 +685,7 @@
 				<button class="btn btn-success" name="otpsubmit">Submit</button><br><br>
 			</div>
 		<!-- </form> -->
+		
 
 		</div>
 	</div>
@@ -678,6 +783,9 @@ function openrgsotp() {
 function openfrgtotp() {
   document.getElementById("frgt-otp").style.display = "block";
   document.getElementById("forgot").style.display = "none";
+  
+
+
 }
 
 
@@ -686,6 +794,9 @@ function openfrgtotp() {
 </script>
 
   <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+
+  
+
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
 <script src="https://kit.fontawesome.com/5f35b5df4f.js" crossorigin="anonymous"></script>
@@ -694,7 +805,7 @@ function openfrgtotp() {
 	function push(){
 	<?php
 	$conn = mysqli_connect("localhost", "root", "");
-		$sql = " INSERT INTO `fiapy-db` . `ordersummary` (`order_id`, `user_id`, `total`, `customer_name`, `cart_id`, `location`) VALUES (NULL, '', '', '', '', ".
+		$sql = " INSERT INTO `fiapy_db` . `ordersummary` (`order_id`, `user_id`, `total`, `customer_name`, `cart_id`, `location`) VALUES (NULL, '', '', '', '', ".
 		$row['locality'] . $row['city'].
                 $row['state'].
                 $row['country'].
@@ -710,5 +821,45 @@ function openfrgtotp() {
 	?>
 }
 </script>
+</script>
+<script src="/fiapy-main/sweetalert.min.js"></script>
+<script>
+
+function pop(){
+	swal({
+		title: "Good job!",
+		text: "Succesfully Registered!",
+		timer: 19000,
+		icon: "success",
+		});
+}
+
+
+function popUp(){
+	setTimeout(pop(), 5000);
+		
+}
+
+</script>
+<script type="text/javascript">
+    function send_otp(){
+	var mobile=jQuery('#mobile').val();
+	jQuery.ajax({
+		url:'verifyOtp.php',
+		type:'post',
+		data:'mobile='+mobile,
+		success:function(result){
+			
+				// jQuery('.second_box').show();
+				// jQuery('.first_box').hide();
+				openfrgtotp();
+			
+		}
+	});
+}
+	
+</script>
+
+
 </body>
 </html>

@@ -1,11 +1,14 @@
+
+
 <!-- API Call For Verification -->
 <?php
+
 			$otp1 = false;
 			if(isset($_POST['Login'])) {
 				require('textlocal.class.php');
 				
 
-				$textlocal = new Textlocal(false, false, '1q+50mkl6+k-Fs0IbsTNfKQ3XIDV1TKsyl8jxKzZee');
+				$textlocal = new Textlocal(false, false, 'c/ciAEsKa/s-Irarv1FIgcYouN21Le9tg52LNrdY3o');
 
                 $numbers = array($_POST['mobile']);
 
@@ -26,7 +29,10 @@
 				$otp = $_POST['OTP'];
 				if($_COOKIE['otp'] == $otp) {
 					// echo "Congratulation, Your mobile is verified.";
-					header('location: login1.php');
+					header('location: index.php');
+					
+
+
 				} else {
 					// echo "Please Enter Correct OTP.";
 					$otp1 = true;

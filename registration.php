@@ -53,7 +53,11 @@ if(isset($_POST['firstname'])){
     }
     
     if($insert){
-        header('location: index.php');
+		// header('location: index.php');
+		
+		
+		
+		
     }
 
 	// echo $sql;
