@@ -11,7 +11,7 @@
   <link rel="icon" type="image/x-icon" href="favicon.ico">
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-  <link rel="stylesheet" type="text/css" href="Fiapy-main/css/indexstyle.css">
+  <link rel="stylesheet" type="text/css" href="Fiapy-main-1/css/indexstyle.css">
   <!-- <link rel="stylesheet" href="css\indexstyle.css"> -->
 </head>
 <body>
@@ -92,23 +92,26 @@
 
 							   if($result){
 								echo "Welcome ". $username;
+								?>
+								<button type="button" class="btn btn-primary-outline" style="color: white !important;" ><i class="fa fa-sign-out"></i>
+				<a style="color: white !important; text-decoration: none;" href="/Fiapy-main/logout.php">Logout</a>
+				</button>
+				<?php
 							   }
 					?>
 				</button>
 				
-				<button type="button" class="btn btn-primary-outline" style="color: white !important;" ><i class="fa fa-sign-out"></i>
-				<a style="color: white !important; text-decoration: none;" href="/Fiapy-main/logout.php">Logout</a>
-				</button>
+				
 				
 				</div>
 			</div>
 		</nav>
 	</div>
 <!--           Service Block                 -->
-		<div id="services">
+		<div id="services" class="container">
 			<div class="row">
-				<div class="col-sm-6">
-					<div class="row">
+				<!-- <div class="col-sm-6">
+					<div class="row"> -->
 						<a [routerLink]="['/services/electrician']">
 							<div class="cards" id="cards">
 								<img src="Fiapy-main/images/Electrician.png" class="card-img-top" id="service-img">
@@ -127,9 +130,9 @@
 								<p id="card-text">Carpenter</p>
 							</div>
 						</a>
-					</div>
-				</div>
-				<div class="col-sm-6">
+					<!-- </div>
+				</div> -->
+				<!-- <div class="col-sm-6">
 					<div class="row">
 						<a [routerLink]="['/services/mechanic']">
 							<div class="cards" id="cards">
@@ -149,7 +152,7 @@
 								<p id="card-text"><strong>Service 6</strong></p>
 							</div>
 						</div>
-					</div>
+					</div> -->
 				</div>
 			</div>
 		</div>

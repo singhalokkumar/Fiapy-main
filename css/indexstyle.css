@@ -288,7 +288,7 @@ a{
     width: 110px;
     height: 100px;
     border-radius: 5px;
-    margin: 35px;
+    margin: 50px;
     background: linear-gradient(to bottom, #FDA55F 0%, #FF6270 100%);
     color: #3D5154;
 }
@@ -305,12 +305,13 @@ a{
     border: 1px black solid;
     width: 75%;
     background-color: white;
-    margin-top:100px;
+    margin-top:-70px;
     border-radius: 10px;
     position: absolute;
 	display: flex;
 	justify-content: center;
-	align-items: center;
+    align-items: center;
+    margin-left: 200px;;
 
 }
 /*================upper-curve==================*/

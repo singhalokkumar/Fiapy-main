@@ -1,699 +1,581 @@
-<?php   
-
- session_start();  
- $total = 0;
- $quantity = 0;
- $connect = mysqli_connect("localhost", "root", ""); 
-
- if(isset($_POST["addtocart"]))  
- {  
-     $quantity = $quantity + 1;
-    if(isset($_SESSION["shopping_cart"]))  
-    {  
-        
-        $item_array_id = array_column($_SESSION["shopping_cart"], "item_id");  
-        if(!in_array($_GET["id"], $item_array_id))  
-        {  
-             $count = count($_SESSION["shopping_cart"]);  
-             $item_array = array(  
-                  'item_id'               =>     $_GET["id"],  
-                  'item_name'               =>     $_POST["name"],  
-                  'item_price'          =>     $_POST["price"] ,
-                  'item_quantity'          =>     $_POST["number"]  
-             );  
-             $_SESSION["shopping_cart"][$count] = $item_array;  
-        }  
-        else  
-        {  
-            //  echo '<script>alert("Item Already Added")</script>';  
-             echo '<script>window.location="electrician.php"</script>';  
-        }  
-    }
-    else  
-    {  
-         $item_array = array(  
-              'item_id'               =>     $_GET["id"],  
-              'item_name'               =>     $_POST["name"],  
-              'item_price'          =>     $_POST["price"],
-              'item_quantity'          =>     $_POST["number"]  
-         );  
-         $_SESSION["shopping_cart"][0] = $item_array; 
-    }  
-           
- }
- if(isset($_GET["action"]))  
- {  
-      if($_GET["action"] == "delete")  
-      {  
-           foreach($_SESSION["shopping_cart"] as $keys => $values)  
-           {  
-                if($values["item_id"] == $_GET["id"])  
-                {  
-                     unset($_SESSION["shopping_cart"][$keys]);  
-                    //  echo '<script>alert("Item Removed")</script>';  
-                     echo '<script>window.location="electrician.php"</script>';  
-                }  
-           }  
-      }  
- }  
- ?>
-
-
 <!DOCTYPE html>
 <html>
 <head>
-  <meta charset="utf-8">
-  <title>StyleEasyWeb</title>
-  <base href="/">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="icon" type="image/x-icon" href="favicon.ico">
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
-<style type="text/css">
-	body{
-		background-image: url("Fiapy-main-1/images/Background.jpg");
-	}
-	/*nav*/
-	#nav{
+	<title></title>
+	<meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+	<link rel="stylesheet" type="text/css" href="/service/servicesstyle.css">
+	<style type="text/css">
+		/*==================nav=========================*/
+body{
+	background: url(images/background.jpg);
+}
+#nav{
 	height: 60px;
 	padding: 0px;
-	}
-#search{
-	width: 50%;
-	margin-right: 10%;
-}
-
-/*service-catagories*/
+	}		/*=================Service menu====================*/
 #service-menu{
-    height: 100px;
-    padding-top: 35px;
+		height: 100px;
+		padding-top: 35px;
 }
 #service-menu>ul>li{
-background-color: white;
-border-radius: 20px;
-border: .5px solid purple;
-color: purple;
-width: 165px;
-height: 50px;
-text-align: center;
-margin-left: 10px;
+	background-color: white;
+	border-radius: 20px;
+	border: .5px solid purple;
+	color: purple;
+	width: 165px;
+	height: 50px;
+	text-align: center;
+	margin-left: 30px;
 }
 #service-menu>ul>li>a{
-padding-top: 10px; 
-color: purple;
+	padding-top: 10px; 
+	color: purple;
 }
 /*================Service Catogories=====================*/
 #serv-nav{
-    margin-bottom: 20px;
-    border-radius: 10px; 
-    background-color: white; 
-    padding: 0px; 
-    text-align: center;
-    }
-    .nav-link{
-    color: purple;
-    }
-    #item{
-    padding-top:10px;
-    padding-bottom:20px; 
-    background-color:white;
-    }
-    
+	margin-bottom: 20px;
+	border-radius: 10px; 
+	background-color: white; 
+	padding: 0px; 
+	text-align: center;
+}
+#serv-nav>ul>li>a{
+	color: purple;
+}
+#overflow{
+	height: 450px; border-radius: 10px;
+}
+#section1,#section2,#section3,#section4,#section5,#section6{
+	padding-top:10px;
+	padding-bottom:20px; 
+	background-color:white;
+}
 
-    .nav-pills .nav-link.active, .nav-pills .show>.nav-link {
-        color: #fff;
-        background-color: purple;
-    }
-    /*=================items-list=========================*/
+/*=================items-list=========================*/
+#item{
+	height: 100px;
+	width: 600px; 
+	border: 1px solid #ddd; 
+	margin-top: 30px; 
+	margin-left: 0px; 
+	padding-left: 20px;
+}
+#item-img{
+	display: inline;
+	position: relative;
+}
+#item-img>img{
+	height: 80px;
+	width: 80px;
+	border: 1px solid black;
+	margin-top: 10px;
+	background: linear-gradient(to bottom, #FDA55F 0%, #FF6270 100%);
+}
+#item-desc{
+	display: inline; 
+	padding-left: 20px;
+	padding-top: 20px;
+}
+#item-desc>p{
+	margin-bottom: 0;
+}
+#quantity{
+	height: 50px;
+	width: 100px; 
+	display: inline;
+	margin-left: 250px; 
+	margin-top: 25px;
+}
+form {
+  width: 130px;
+  margin: 0 auto;
+  text-align: center;
+  padding-top: 0px;
+}
 
-    li{
-        padding: 0;
-        border: none;
-    }
-    
+.value-button {
+  display: inline-block;
+  border: 1px solid #ddd;
+  margin: 0px;
+  width: 40px;
+  height: 40px;
+  background-color: purple !important;
+  color: white;
+  text-align: center;
+  vertical-align: middle;
+  padding-top: 3px;
+  background: #eee;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
 
-    /*======================items============================*/
-    #item{
-    height: 100px;
-    width: 500px; 
-    border: 1px solid #ddd; 
-    margin-top: 10px; 
-    margin-left: 0px; 
-    padding-left: 20px;
-    }
-    #item-box{
-        width:550px;
-    }
-    #item-img{
-    display: inline;
-    position: relative;
-    }
-    #item-img>img{
-    height: 80px;
-    width: 80px;
-    border: 1px solid black;
-    margin-top: 10px;
-    background: linear-gradient(to bottom, #FDA55F 0%, #FF6270 100%);
-    }
-    #item-desc{
-    display: inline; 
-    padding-left: 20px;
-    padding-top: 20px;
-    margin-right:50px;
-    }
-    #item-desc>p{
-    margin-bottom: 0;
-    }
-    #quantity{
-    display: inline;
-    margin-left: 0px;
-    margin-top: auto;
-    margin-bottom: auto;
-    }
-    #addtocart-btn{
-        height:40px;
-        width:115px;
-        background-color:purple;
-        border:none;
-        border-radius:10px;
-        color:white;
-    }
-    form {
-    width: 130px;
-    margin-left: 10px;
-    text-align: center;
-    padding-top: 0px;
-    }
-    
-    .value-button {
-    display: inline-block;
-    border: 1px solid #ddd;
-    margin: 0px;
-    width: 40px;
-    height: 40px;
-    background-color: purple !important;
-    color: white;
-    text-align: center;
-    vertical-align: middle;
-    padding-top: 3px;
-    background: #eee;
-    -webkit-touch-callout: none;
-    -webkit-user-select: none;
-    -khtml-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
-    }
-    
-    .value-button:hover {
-    cursor: pointer;
-    }
-    
-    form #decrease {
-    margin-right: -4px;
-    border-radius: 8px 0 0 8px;
-    }
-    
-    form #increase {
-    margin-left: -4px;
-    border-radius: 0 8px 8px 0;
-    }
-    
-    form #input-wrap {
-    margin: 0px;
-    padding: 0px;
-    }
-    
-    input#number {
-    text-align: center;
-    border: none;
-    border-top: 1px solid #ddd;
-    border-bottom: 1px solid #ddd;
-    width: 40px;
-    height: 40px;
-    }
-    
-    input[type=number]::-webkit-inner-spin-button,
-    input[type=number]::-webkit-outer-spin-button {
+.value-button:hover {
+  cursor: pointer;
+}
+
+form #decrease {
+  margin-right: -4px;
+  border-radius: 8px 0 0 8px;
+}
+
+form #increase {
+  margin-left: -4px;
+  border-radius: 0 8px 8px 0;
+}
+
+form #input-wrap {
+  margin: 0px;
+  padding: 0px;
+}
+
+input#number {
+  text-align: center;
+  border: none;
+  border-top: 1px solid #ddd;
+  border-bottom: 1px solid #ddd;
+  width: 40px;
+  height: 40px;
+}
+
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
     -webkit-appearance: none;
     margin: 0;
-    }
-
-    /*cart*/
-    #cart{
-    width: 500px; 
-    background: white;
-    height:450px;
-    border-radius: 10px;
-    margin-top: 20px;
-    }
-    #cart-nav{
-    height: 60px; 
-    text-align: center; 
-    padding-top: 10px;
-    }
-    #items-area{
-    background: linear-gradient(to bottom right, #FDA55F 0%, #FF6270 100%);
-    height: 390px;
-    padding-top: 10px;
-    }
-    li{
-        border: none;
-        padding: 0;
-        background: transparent;
-    }
-    #checkout{
-    width: 196%;
-    height: 50px; 
-    margin-top: 10px; 
-    margin-right: 10px;
-    }
-    /*======================cart-item=====================*/
-    #cart-items{
-        height: 30px;
-        border-bottom: 1px solid #ddd;
-        padding-left: 10px;
-        color: black;
-        margin: 10px;
-        }
-</style>
+}
+/*====================cart=====================*/
+#cart{
+	width: 500px; 
+	background: white;
+	height:450px;
+	border-radius: 10px;
+	margin-top: 20px;
+}
+#cart-nav{
+	height: 60px; 
+	text-align: center; 
+	padding-top: 10px;
+}
+#items-area{
+	background: linear-gradient(to bottom right, #FDA55F 0%, #FF6270 100%);
+	height: 390px;
+	padding-top: 10px;
+}
+#cart-items{
+	height: 30px;
+	border-bottom: 1px solid #ddd;
+	padding-left: 10px;
+	color: white;
+	margin: 10px;
+}
+#checkout{
+	width: 100%;
+	height: 50px; 
+	margin-top: 10px; 
+	margin-right: 10px;
+}
+	</style>
 </head>
 <body>
+	<!--         nav       -->
 <section>
-<nav class="navbar navbar-light bg-light" id="nav">
+	<nav class="navbar navbar-light bg-light" id="nav">
 		<div class="container">
   			<a class="navbar-brand" href="#">
     			<h3>Company Logo</h3>
  			 </a>
- 			 <div class="input-group" id="search">
-  			<input type="text" class="form-control" aria-label="Text input with segmented dropdown button" placeholder="Search for a service">
-  			<button type="button" class="btn btn-outline-secondary dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-      			<span class="sr-only">Toggle Dropdown</span>
-    		</button>
-    		<div class="input-group-append">
-    			<div class="dropdown-menu">
-      				<a class="dropdown-item" href="#">Action</a>
-      				<a class="dropdown-item" href="#">Another action</a>
-      				<a class="dropdown-item" href="#">Something else here</a>
-      				<div role="separator" class="dropdown-divider"></div>
-      				<a class="dropdown-item" href="#">Separated link</a>
-    			</div>
-  			</div>
-  			<input type="text" class="form-control" aria-label="Text input with segmented dropdown button" placeholder="Search for a service">
-  			<button type="button" class="btn btn-outline-secondary dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-      			<span class="sr-only">Toggle Dropdown</span>
-    		</button>
-  			<div class="input-group-append">
-    			<button type="button" class="btn btn-success">Search</button>
-    			<div class="dropdown-menu">
-      				<a class="dropdown-item" href="#">Action</a>
-      				<a class="dropdown-item" href="#">Another action</a>
-      				<a class="dropdown-item" href="#">Something else here</a>
-      				<div role="separator" class="dropdown-divider"></div>
-      				<a class="dropdown-item" href="#">Separated link</a>
-    			</div>
-  			</div>
-  		</div>
-  			<div class="container3">
-				<div class="btn-group ">
-					<button type="button" class="btn btn-primary-outline"><strong>Login/SignUp</strong></button>
-				</div>
-			</div>
+  			<div>
 		</div>
 	</nav>
 	
 </section>
 
-<!-- service-catagories -->
+<!--          service menu           -->
+
 <section>
 	<div class="container" id="service-menu">
 	<ul class="nav justify-content-center">
-  <li class="nav-item" style="background-color:purple;">
-    <a class="nav-link" (click)="electrician()"style="color: white;">Electrician</a>
+  <li class="nav-item" >
+    <a class="nav-link" href="#" style="">Electrician</a>
   </li>
   <li class="nav-item">
-    <a class="nav-link" (click)="plumber()">Plumber</a>
+    <a class="nav-link" href="#">Grooming</a>
   </li>
   <li class="nav-item">
-    <a class="nav-link" (click)="carpenter()">Carpenter</a>
-  </li>
-  <li class="nav-item">
-    <a class="nav-link" (click)="mechanic()">Mechanic</a>
-  </li>
-  <li class="nav-item">
-    <a class="nav-link" (click)="haircut()">Haircut/salon</a>
-  </li>
-  <li class="nav-item">
-    <a class="nav-link">Link</a>
+    <a class="nav-link" href="#">Laundry</a>
   </li>
 </ul>
 	</div>
 </section>
 
+<!--              service-menu          -->
+								
+
 <section>
 	<div class="container">
 		<div class="row">
 			<div class="col-lg-7">
-			    <div class="row" style="width: 600px; margin-top: 20px;">
-<div class="col-12" style="">
-    <nav id="navbar-orders-now-status" class="navbar" style="margin-bottom: 20px;border-radius: 10px; background-color: white; padding: 0px; text-align: center;">
-        <ul class="nav nav-pills">
-            <li class="nav-item" style="width: 125px;">
-                <a class="nav-link" href="#SECTION1" data-turbolinks="false">Switch/Socket</a>
-            </li>
-            <li class="nav-item" style="width: 80px;">
-                <a class="nav-link" href="#SECTION2" data-turbolinks="false">Fan</a>
-            </li>
-            <li class="nav-item" style="width: 90px;">
-                <a class="nav-link" href="#SECTION3" data-turbolinks="false">Light</a>
-            </li>
-			<li class="nav-item" style="width: 90px;">
-                <a class="nav-link" href="#SECTION4" data-turbolinks="false">MCB/Fuse</a>
-            </li>
-            <li class="nav-item" style="width: 90px;">
-                <a class="nav-link" href="#SECTION5" data-turbolinks="false">Wiring</a>
-            </li>
-			<li class="nav-item" style="width: 90px;">
-                <a class="nav-link" href="#SECTION6" data-turbolinks="false">Others</a>
-            </li>
-        </ul>
-    </nav>
-</div>
+			<div data-spy="scroll" data-target=".navbar" data-offset="50" style="width: 650px; margin-top: 20px;">
+				<nav class="navbar navbar-expand-sm" id="serv-nav">  
+				  <ul class="navbar-nav">
+				    <li class="nav-item" style="width: 125px;">
+				      <a class="nav-link" href="#section1">Switch/Socket</a>
+				    </li>
+				    <li class="nav-item" style="width: 100px;">
+				      <a class="nav-link" href="#section2">Fan</a>
+				    </li>
+				    <li class="nav-item" style="width: 105px;">
+				      <a class="nav-link" href="#section3">Light</a>
+				    </li>
+				    <li class="nav-item" style="width: 105px;">
+				      <a class="nav-link " href="#section4">MCB/Fuse</a>
+				    </li>
+				    <li class="nav-item" style="width: 105px;">
+				      <a class="nav-link " href="#section5">Wiring</a>
+				    </li>
+				   <li class="nav-item" style="width: 105px;">
+				      <a class="nav-link " href="#section6">Others</a>
+				    </li>
+				  </ul>
+				</nav>
 
-        <!-- ========================Components================== -->
-<div class="row" data-spy="scroll" data-target="#navbar-orders-now-status" data-offset="50" style="height: 450px; overflow-y: scroll; background-color:white">
-    <div class="col-12" style="width: 600px; margin-top: 20px;">
-        <h4 id="SECTION1"></h4>
-        <?php
-                 $query = "SELECT * FROM `fiapy-db` . `product` where id = 1";  
-                 $result = mysqli_query($connect, $query);  
-                 if(mysqli_num_rows($result) > 0)  
-                {  
-                     $row = mysqli_fetch_assoc($result)
-        ?>
-         <form action="/Fiapy-main/electrician.php?action=add&id=<?php echo $row["id"]; ?>" method="post">
-        <div class="container-fluid">
-			<div style="border-bottom: 1px solid #ddd;"><p style="margin-bottom: 0;">Switches/Sockets</p></div>
-            <ul class="list-group">
-            <li class="list-group-item" id="item-box">
-            	<div id="item" class="row">
-                <div id="item-img"><img src=""></div>
-                <div id="item-desc"><p><input style="border: none;" name="name" value="<?php echo $row["name"]; ?>" /></p><p><input style="border: none;" name="price" value="<?php echo $row["price"]; ?>" /></p></div>
-	            <div id="quantity">
-                    
-                <button name="addtocart" id="addtocart-btn">Add to cart</button>
-                    <form>
-                        <div class="row">
-                            <div class="value-button" id="decrease" onclick="decrease()" value="Decrease Value" >-</div>
-                            <div><input name="number" type="number" id="number" value="1" /></div>
-                            <div class="value-button" id="increase" onclick="increase()" value="Increase Value">+</div>
-                        </div>
-                    </form>
-                </div>
-                </form>
-    <?php  
-                     
-                }  
-    ?> 
-</div>
-			</li>
-            </ul>
-		</div>
-        <h4 id="SECTION2"></h4>
-        <?php
-                 $query = "SELECT * FROM `fiapy-db` . `product` where id = 2";  
-                 $result = mysqli_query($connect, $query);  
-                 if(mysqli_num_rows($result) > 0)  
-                {  
-                     $row = mysqli_fetch_assoc($result)
-          ?>
-         <form action="/Fiapy-main/electrician.php?action=add&id=<?php echo $row["id"]; ?>" method="post">
-        <div class="container-fluid">
-			<div style="border-bottom: 1px solid #ddd;"><p style="margin-bottom: 0;">Switches/Sockets</p></div>
-            <ul class="list-group">
-            <li class="list-group-item" id="item-box">
-				<div id="item" class="row">
-                <div id="item-img"><img src=""></div>
-                <div id="item-desc"><p><input style="border: none;" name="name" value="<?php echo $row["name"]; ?>" /></p><p><input style="border: none;" name="price" value="<?php echo $row["price"]; ?>" /></p></div>
-	            <div id="quantity">
-                <button name="addtocart" id="addtocart-btn" (click)="handelerAddToCart()" *ngIf="quantity===0">Add to cart</button>
-                    <form>
-                        <div class="row">
-                            <div class="value-button" id="decrease"  onclick="decrease()"   value="Decrease Value" >-</div>
-                            <div><input name="number" type="number" id="number" value="1" /></div>
-                            <div class="value-button" id="increase"  onclick="increase()"  value="Increase Value">+</div>
-                        </div>
-                    </form>
-                </div>
-                </form>
-                <?php  
-                            }  
-                ?> 
-            </div>
-			</li>
-            </ul>
-		</div>
-        <h4 id="SECTION3"></h4>
-        <?php
-                 $query = "SELECT * FROM `fiapy-db` . `product` where id = 3";  
-                 $result = mysqli_query($connect, $query);  
-                 if(mysqli_num_rows($result) > 0)  
-                {  
-                     $row = mysqli_fetch_assoc($result)
-                     
-                        
-               
-        ?>
-         <form action="/Fiapy-main/electrician.php?action=add&id=<?php echo $row["id"]; ?>" method="post">
-        <div class="container-fluid">
-			<div style="border-bottom: 1px solid #ddd;"><p style="margin-bottom: 0;">Switches/Sockets</p></div>
-            <ul class="list-group">
-            <li class="list-group-item" id="item-box">
-				<div id="item" class="row">
-                <div id="item-img"><img src=""></div>
-                <div id="item-desc"><p><input style="border: none;" name="name" value="<?php echo $row["name"]; ?>" /></p><p><input style="border: none;" style="border: none;" name="price" value="<?php echo $row["price"]; ?>" /></p></div>
-	            <div id="quantity">
-                <button name="addtocart" id="addtocart-btn" (click)="handelerAddToCart()" *ngIf="quantity===0">Add to cart</button>
-                    <!-- <form *ngIf="quantity>0"> -->
-                        <div class="row">
-                            <div class="value-button" id="decrease" (click)="decreseItem()" value="Decrease Value" >-</div>
-                            <div><input name="number" type="number" id="number" value="1" /></div>
-                            <div class="value-button" id="increase" (click)="handelerAddToCart()" value="Increase Value">+</div>
-                        </div>
-                    <!-- </form> -->
-                </div>
-                </form>
-                <?php  
-                                
-                            }  
-                ?> 
-            </div>
-			</li>
-            </ul>
-		</div>
-        <h4 id="SECTION4"></h4>
-        <?php
-                 $query = "SELECT * FROM `fiapy-db` . `product` where id = 4";  
-                 $result = mysqli_query($connect, $query);  
-                 if(mysqli_num_rows($result) > 0)  
-                {  
-                     $row = mysqli_fetch_assoc($result)
-                     
-                        
-               
-        ?>
-         <form action="/Fiapy-main/electrician.php?action=add&id=<?php echo $row["id"]; ?>" method="post">
-		<div class="container-fluid">
-			<div style="border-bottom: 1px solid #ddd;"><p style="margin-bottom: 0;">Switches/Sockets</p></div>
-            <ul class="list-group">
-            <li class="list-group-item" id="item-box">
-				<div id="item" class="row">
-                <div id="item-img"><img src=""></div>
-                <div id="item-desc"><p><input style="border: none;" name="name" value="<?php echo $row["name"]; ?>" /></p><p><input style="border: none;" name="price" value="<?php echo $row["price"]; ?>" /></p></div>
-	            <div id="quantity">
-                <button name="addtocart" id="addtocart-btn" (click)="handelerAddToCart()" *ngIf="quantity===0">Add to cart</button>
-                    <!-- <form *ngIf="quantity>0"> -->
-                        <div class="row">
-                            <div class="value-button" id="decrease" (click)="decreseItem()" value="Decrease Value" >-</div>
-                            <div><input name="number" type="number" id="number" value="1" /></div>
-                            <div class="value-button" id="increase" (click)="handelerAddToCart()" value="Increase Value">+</div>
-                        </div>
-                    <!-- </form> -->
-                </div>
-                </form>
-                <?php  
-                                
-                            }  
-                ?> 
-            </div>
-			</li>
-            </ul>
-		</div>
-        <h4 id="SECTION5"></h4>
-        <?php
-                 $query = "SELECT * FROM `fiapy-db` . `product` where id = 5";  
-                 $result = mysqli_query($connect, $query);  
-                 if(mysqli_num_rows($result) > 0)  
-                {  
-                     $row = mysqli_fetch_assoc($result)
-                     
-                        
-               
-        ?>
-         <form action="/Fiapy-main/electrician.php?action=add&id=<?php echo $row["id"]; ?>" method="post">
-		<div class="container-fluid">
-			<div style="border-bottom: 1px solid #ddd;"><p style="margin-bottom: 0;">Switches/Sockets</p></div>
-            <ul class="list-group">
-            <li class="list-group-item" id="item-box">
-				<div id="item" class="row">
-                <div id="item-img"><img src=""></div>
-                <div id="item-desc"><p><input style="border: none;" name="name" value="<?php echo $row["name"]; ?>" /></p><p><input style="border: none;" name="price" value="<?php echo $row["price"]; ?>" /></p></div>
-	            <div id="quantity">
-                <button name="addtocart" id="addtocart-btn" (click)="handelerAddToCart()" *ngIf="quantity===0">Add to cart</button>
-                    <!-- <form *ngIf="quantity>0"> -->
-                        <div class="row">
-                            <div class="value-button" id="decrease"  (click)="decreseItem()" value="Decrease Value" >-</div>
-                            <div><input name="number" type="number" id="number" value="1" /></div>
-                            <div class="value-button" id="increase" (click)="handelerAddToCart()" value="Increase Value">+</div>
-                        </div>
-                    <!-- </form> -->
-                </div>
-                </form>
-                <?php  
-                                
-                            }  
-                ?> 
+				<?php
+
+						// Set Conncetion variables
+						$server = "localhost";
+						$username = "root";
+						$password = "";
+						$dbname = "fiapy-db";
+
+						// Create Connection 
+						$con = mysqli_connect($server,$username,$password,$dbname);
+
+						// Check For The Conncection
+						if(!$con){
+							die("Connection is not created ". mysqli_connect_error());
+						}
 
 
-            </div>
-			</li>
-            </ul>
-		</div>
-        <h4 id="SECTION6"></h4>
-        <?php
+					
 
-                 $query = "SELECT * FROM `fiapy-db` . `product` where id = 6";  
-                 $result = mysqli_query($connect, $query);  
-                 if(mysqli_num_rows($result) > 0)  
-                {  
-                     $row = mysqli_fetch_assoc($result)
-                     
-                        
-               
-        ?>
 
-        <form action="/Fiapy-main/electrician.php?action=add&id=<?php echo $row["id"]; ?>" method="post">
-		<div class="container-fluid">
-            <div style="border-bottom: 1px solid #ddd;"><p style="margin-bottom: 0;">Switches/Sockets</p></div>
-            
-            <ul class="list-group">
-            <li class="list-group-item" id="item-box">
-				<div id="item" class="row">
-                <div id="item-img"><img src="<?php echo $row["image"]; ?>"></div>
-                <div id="item-desc"><p><input style="border: none;" name="name" value="<?php echo $row["name"]; ?>" /></p><p><input style="border: none;" name="price" value="<?php echo $row["price"]; ?>" /></p></div>
-	            <div id="quantity">
+					function product($product_name,$product_cost){
 
-                <button name="addtocart" id="addtocart-btn" (click)="handelerAddToCart()" *ngIf="quantity===0">Add to cart</button>
-                    <form>
-                    <div class="row">
-                        <div class="value-button" id="decrease"  onclick="decrease()" value="Decrease Value" >-</div>
-                        <div><input name="number" type="number" id="number" value="0" ></div>
-                        <div class="value-button" id="increase"  onclick="increase()" value="Increase Value">+</div>
-                    </div>
-                    </form>
-                </div>
-            </form>
-                <?php  
-                                
-                            }  
-                ?> 
-                
-            </div>
-			</li>
-            </ul>
-		</div>
-    </div>
-</div>
-</div>		    
-</div>
+						$element="
+						<div id=\"item\" class=\"row\">
+								<div id=\"item-img\"><img src=\"\"></div>
+								<div id=\"item-desc\"><p>$product_name</p><p><i class="fa fa-rupee"></i>$product_cost</p></div>
+								<div id=\"quantity\">
+									<form>
+										<div class=\"row\">
+								  			<div class=\"value-button\" id=\"decrease\" onclick=\"decreaseValue()\" value=\"Decrease Value\" >-</div>
+								  			<div><input type=\"number\" id=\"number\" value=\"0\" /></div>
+								  			<div class=\"value-button\" id=\"increase\" onclick=\"increaseValue()\" value=\"Increase Value\">+</div>
+										</div>
+									</form>
+								</div>
+							</div>
+						";
 
-        <!-- ======================= Cart Section ====================== -->
-			<div class="col-lg-3">
-				<div id="cart">
-		<div id="cart-nav"><h3>Your Cart</h3></div>
-       
-		<div id="items-area">
-		<div class="alert alert-info" *ngIf="cartItems.length === 0">Your Cart</div>
-		<div *ngIf="cartItems.length > 0">
-			<ul class="list-group">
-				<li class="list-group-item" *ngFor="let item of cartItems">
-               
-                           <?php   
-                          if(!empty($_SESSION["shopping_cart"]))  
-                          {  
-                               foreach($_SESSION["shopping_cart"] as $keys => $values)  
-                               {  
-                    ?>  
-					<p id="cart-items"><strong><?php echo $values["item_name"]; ?> X  <?php echo $values["item_quantity"]; ?> =  <?php echo $values["item_price"]; ?>
-                     
-                     
-                     <td><a href="/Fiapy-main/electrician.php?action=delete&id=<?php echo $values["item_id"]; ?>"><span class="text-danger">Remove</span></a></td>  
-                    <?php  
-                                    $total = $total + ((int)$values["item_quantity"] * (int)$values["item_price"]);  
-                               }  
-                          ?>  
-                    </strong></div>
-				</li>
-			</ul>
+						echo $element;
+					}
+				?>
+
+
+				<div class="overflow-auto" id="overflow">
+					<div id="section1" class="container-fluid">
+					  	<div style="border-bottom: 1px solid #ddd;"><p style="margin-bottom: 0;">Switches/Sockets</p></div>
+						  	<?php
+						$sql = "SELECT * from `product` where item_type = 'Switch/Socket'";
+
+						$result = mysqli_query($con,$sql);
+						  	while ($row = mysqli_fetch_assoc($result)) {
+
+						  	product($row['name'],$row['cost']);
+						  	}
+						  	?>
+						</div>
+					<div id="section2" class="container-fluid">
+					  <div style="border-bottom: 1px solid #ddd;"><p style="margin-bottom: 0;">Switches/Sockets</p></div>
+						  	<?php
+						$sql = "SELECT * from `product` where item_type = 'Fan'";
+
+						$result = mysqli_query($con,$sql);
+						  	while ($row = mysqli_fetch_assoc($result)) {
+
+						  	product($row['name'],$row['cost']);
+						  	}
+						  	?>
+						</div>
+					<div id="section3" class="container-fluid">
+					  <div style="border-bottom: 1px solid #ddd;"><p style="margin-bottom: 0;">Switches/Sockets</p></div>
+						  	<?php
+						$sql = "SELECT * from `product` where item_type = 'Fan'";
+
+						$result = mysqli_query($con,$sql);
+						  	while ($row = mysqli_fetch_assoc($result)) {
+
+						  	product($row['name'],$row['cost']);
+						  	}
+						  	?>
+						</div>
+					<div id="section4" class="container-fluid">
+					  <div style="border-bottom: 1px solid #ddd;"><p style="margin-bottom: 0;">Switches/Sockets</p></div>
+						  	<?php
+						$sql = "SELECT * from `product` where item_type = 'Fan'";
+
+						$result = mysqli_query($con,$sql);
+						  	while ($row = mysqli_fetch_assoc($result)) {
+
+						  	product($row['name'],$row['cost']);
+						  	}
+						  	?>
+						</div>
+					<div id="section5" class="container-fluid">
+					  <div style="border-bottom: 1px solid #ddd;"><p style="margin-bottom: 0;">Switches/Sockets</p></div>
+						  	<?php
+						$sql = "SELECT * from `product` where item_type = 'Fan'";
+
+						$result = mysqli_query($con,$sql);
+						  	while ($row = mysqli_fetch_assoc($result)) {
+
+						  	product($row['name'],$row['cost']);
+						  	}
+						  	?>
+						</div>
+					<div id="section6" class="container-fluid">
+					  <div style="border-bottom: 1px solid #ddd;"><p style="margin-bottom: 0;">Switches/Sockets</p></div>
+						  	<?php
+						$sql = "SELECT * from `product` where item_type = 'Fan'";
+
+						$result = mysqli_query($con,$sql);
+						  	while ($row = mysqli_fetch_assoc($result)) {
+
+						  	product($row['name'],$row['cost']);
+						  	}
+						  	?>
+					</div>
+				</div>
 			</div>
 		</div>
-        
-	<button type="button" class="btn btn-success" id="checkout"><strong>CheckOut</strong>{<?php echo number_format($total, 2); ?>}</button>
-    <?php  
-                            }
-    ?>  
-</div>
+			<div class="col-lg-3">
+				<div id="cart">
+					<div id="cart-nav"><h3>Cart<i class="fa fa-shopping-cart"></i><span id="quantity1">0</span></h3></div>
+					<div id="items-area">
+						
+					</div>
+					<button type="button" class="btn btn-success" id="checkout"></button>
+				</div>
 			</div>
 		</div>
 	</div>
-    
 </section>
-
-<button type="button" onclick="increase()">+</button>
-        <input type="number" id="number" value="0">
-        <button type="button" onclick="decrease()">-</button>
-
-        <script>
-            function increase(){
-                
-                var textBox = document.getElementById("number");
-                textBox.value++;
-                
-            }    
-            function decrease(){
-              var textBox = document.getElementById("number");
-                textBox.value--;
-            }
-        </script>
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 <script>
 
-            function increase(){
-                
-                var textBox = document.getElementById("number");
-                textBox.value++;
-                
-            }    
-            function decrease(){
-              var textBox = document.getElementById("number");
-                textBox.value--;
-            }
-    
 
-</script>
+let obj = <?php 
+$sql = "SELECT name,cost,incart,id from `product` where item_type = 'Switch/Socket'";
+
+						$result = mysqli_query($con,$sql);
+						  	while ($row = mysqli_fetch_assoc($result)) {
+						  	echo json_encode($row);
+						  }?>;
+						  
+let JS_obj = JSON.stringify(obj);
+let res = JSON.parse(JS_obj); 
+let product=[];
+
+for (var j in res) {
+	product.push(res[j]);
+
+};
+product.name=product[0];
+product.cost=product[1];
+product.incart=product[2];
+product.id=product[3];
+
+product.id=parseInt(product.id);
+product.cost=parseInt(product.cost);
+product.incart=parseInt(product.incart);
+let products = [];
+
+for (var i=0;i<10;i++){
+	products=[{
+		name:product.name,
+		cost: product.cost,
+		incart:product.incart,
+	},
+];
+console.log(products);
+console.log(i);
+}
+	let cart = document.querySelectorAll('#increase');
+let removecart = document.querySelectorAll('#decrease');
+for (let i=0;i < cart.length; i++) {
+	cart[i].addEventListener('click',()=>{
+		cartNumbers(products[i]);
+		totalCost(products[i]);
+	})
+}
+for (let i=0;i < cart.length; i++) {
+	removecart[i].addEventListener('click',()=>{
+		cartNumbersDec(products[i]);
+		removetotalCost(products[i]);
+	})
+}
 
 
-  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
-<script src="https://kit.fontawesome.com/5f35b5df4f.js" crossorigin="anonymous"></script>
+
+function onLoadCartNmbers(){
+	let productNumbers = localStorage.getItem('cartNumbers');
+
+	if (productNumbers) {
+		document.querySelector('#quantity1').textContent =productNumbers;
+	}
+}
+
+
+function cartNumbers(products){
+	let productNumbers = localStorage.getItem('cartNumbers');
+
+	productNumbers = parseInt(productNumbers);
+	if (productNumbers) {
+	localStorage.setItem('cartNumbers',productNumbers+1);
+	document.querySelector('#quantity1').textContent = productNumbers+1;
+}
+else{
+	localStorage.setItem('cartNumbers',1);
+	document.querySelector('#quantity1').textContent = 1;
+}
+setItems(products);
+}
+function cartNumbersDec(products){
+	let productNumbers = localStorage.getItem('cartNumbers');
+
+	productNumbers = parseInt(productNumbers);
+	if (productNumbers>0) {
+	localStorage.setItem('cartNumbers',productNumbers-1);
+	document.querySelector('#quantity1').textContent = productNumbers-1;
+}
+else{
+	localStorage.setItem('cartNumbers',1);
+	document.querySelector('#quantity1').textContent = 1;
+}
+removeItems(products);
+}
+function setItems(products){
+	let cartItems = localStorage.getItem('productsInCart');
+	cartItems=JSON.parse(cartItems);
+
+	if (cartItems!=null) {
+		if (cartItems[products.name] == undefined) { 
+			cartItems = {
+				...cartItems,
+				[products.name]:products
+			}
+		}
+		cartItems[products.name].incart += 1;
+	}
+	else{
+	products.incart=1;
+	cartItems={
+			[products.name]: products
+		}
+	}
+	localStorage.setItem("productsInCart",JSON.stringify(cartItems));
+	console.log(cartItems);
+}
+function removeItems(products){
+	let cartItems = localStorage.getItem('productsInCart');
+	cartItems=JSON.parse(cartItems);
+
+	if (cartItems!=null) {
+		if (cartItems[products.name] == undefined) { 
+			cartItems = {
+				...cartItems,
+				[products.name]:products
+			}
+		}
+		cartItems[products.name].incart -= 1;
+	}
+	else{
+	products.incart=1;
+	cartItems={
+			[products.name]: products
+		}
+	}
+	localStorage.setItem("productsInCart",JSON.stringify(cartItems));
+}
+
+function totalCost(products){
+
+	let cartCost = localStorage.getItem('totalCost');
+
+	if (cartCost!=null) {
+		cartCost=parseInt(cartCost);
+		localStorage.setItem("totalCost",cartCost+products.cost);
+	}
+	else{
+		localStorage.setItem("totalCost",products.cost);
+	}
+	console.log(cartCost);
+	
+}
+function removetotalCost(products){
+
+	let cartCost = localStorage.getItem('totalCost');
+
+	if (cartCost!=null) {
+		cartCost=parseInt(cartCost);
+		localStorage.setItem("totalCost",cartCost-products.cost);
+	}
+	else{
+		localStorage.setItem("totalCost",products.cost);
+	}
+	console.log(cartCost);
+	
+}
+
+
+function displayCart(){
+	let cartItems = localStorage.getItem("productsInCart");
+	let cartCost = localStorage.getItem('totalCost');
+	cartItems = JSON.parse(cartItems);
+	let cartList = document.querySelector("#items-area");
+	let qty = document.querySelector("#number");
+	let checkOut = document.querySelector("#checkout");
+
+	if (cartItems && cartList) {
+
+		console.log(cartItems);
+		cartList.innerHTML = '';
+		Object.values(cartItems).map(item =>{
+			cartList.innerHTML += `
+				<div>
+					<div id="cart-items"><strong>${item.name} -  <i class="fa fa-rupee"></i> ${item.cost} X ${item.incart} pc ...... <i class="fa fa-close"></i></strong></div>
+				</div>
+			`;
+			});
+		Object.values(cartItems).map(item =>{
+			qty.value= `${item.incart}`;
+			});
+		checkOut.innerHTML += `
+		<strong>CheckOut<i class="fa fa-rupee"></i>${cartCost}</strong>
+		`;
+
+
+	}
+}
+onLoadCartNmbers();
+displayCart();</script>
 </body>
 </html>
