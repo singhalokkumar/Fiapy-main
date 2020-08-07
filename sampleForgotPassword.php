@@ -3,7 +3,7 @@
 <head>
 	<title>Forgot Password</title>
 	
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"> -->
     <style>
     .row {
     display: -ms-flexbox;
@@ -33,7 +33,7 @@
 				require('textlocal.class.php');
 				
 
-				$textlocal = new Textlocal(false, false, '/Qt6x9ynjgk-P1o43ptd51IgO4YjyvyyVvzWC62YSj');
+				$textlocal = new Textlocal(false, false,  '4uzYfSjWtkA-NtfovfqDuqm2vPYubSbKYhUpUvydse');
 
                 $numbers = array($_POST['mobile']);
 
@@ -53,7 +53,8 @@
 			if(isset($_POST['verifyotp'])) { 
 				$otp = $_POST['otp'];
 				if($_COOKIE['otp'] == $otp) {
-					echo "Congratulation, Your mobile is verified.";
+                    // echo "Congratulation, Your mobile is verified.";
+                    header("Location: update-password.php");  
 				} else {
 					echo "Please Enter Correct OTP.";
 				}

@@ -10,6 +10,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="icon" type="image/x-icon" href="favicon.ico">
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
   <link rel="stylesheet" type="text/css" href="Fiapy-main/css/indexstyle.css">
   <!-- <link rel="stylesheet" href="css\indexstyle.css"> -->
 </head>
@@ -83,6 +84,7 @@
 										   header('location: index.php');
 										  
 								 }
+								 
 							   }
 							   else {
 								   echo"Login";
@@ -672,6 +674,7 @@ if(isset($_POST['firstname'])){
 	</form>
 </div>
 
+
 <div style="position: absolute;display: none;" id="frgt">
 	<div id="back">
 		<div  id="box" class="wrapper">
@@ -680,18 +683,19 @@ if(isset($_POST['firstname'])){
 			
 			<!-- End API Call -->
 			<h1>Forgot Password</h1>
-			<form action="/Fiapy-main/verifyOtp.php" method="post">
-			<div id="forgot">
+			<form  method="post" id="myForm">
+			<div id="forgot" class="first_box">
 				<p><strong>Enter Your Registered Mobile No.</strong></p>
 				<!-- <input type="Email" name="Email" placeholder="Email" id="ep"> -->
 				<input type="text" name="mobile" placeholder="Enter Valid Mobile No." id="ep" maxlength="10">
 				<br>
-				<button class="btn btn-success" name="Login" onclick="openfrgtotp()">Send Code</button><br><br>
+				<!-- <button class="btn btn-success" id="forgot" name="Login" onclick="openfrgtotp()" >Send Code</button><br><br> -->
+				<button  class="btn btn-success" id="forgot" name="Login" onclick="send_otp()" >Send Code</button><br><br>
 				<a onclick="openlogin()"><strong>Return to Login</strong></a>
 			</div>
 		</form>
-		<form action="/Fiapy-main/verifyOtp.php" method="post">
-			<div id="frgt-otp">
+		<form action="/Fiapy-main/index.php" method="post">
+			<div id="frgt-otp" class="second_box">
 				<p><strong>An OTP has been sent to your mobile no.</strong></p>
 				<input type="password" name="OTP" placeholder="OTP" id="ep"><br>
 				<button class="btn btn-success" name="otpsubmit">Submit</button><br><br>
@@ -773,6 +777,7 @@ if(isset($_POST['firstname'])){
 				<button class="btn btn-success" name="otpsubmit">Submit</button><br><br>
 			</div>
 		<!-- </form> -->
+		
 
 		</div>
 	</div>
@@ -870,6 +875,9 @@ function openrgsotp() {
 function openfrgtotp() {
   document.getElementById("frgt-otp").style.display = "block";
   document.getElementById("forgot").style.display = "none";
+  
+
+
 }
 
 
@@ -878,6 +886,9 @@ function openfrgtotp() {
 </script>
 
   <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+
+  
+
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
 <script src="https://kit.fontawesome.com/5f35b5df4f.js" crossorigin="anonymous"></script>
@@ -905,8 +916,9 @@ function openfrgtotp() {
 </script>
 <script src="/fiapy-main/sweetalert.min.js"></script>
 <script>
-function popUp(){
-		swal({
+
+function pop(){
+	swal({
 		title: "Good job!",
 		text: "Succesfully Registered!",
 		timer: 19000,
@@ -914,6 +926,32 @@ function popUp(){
 		});
 }
 
+
+function popUp(){
+	setTimeout(pop(), 5000);
+		
+}
+
 </script>
+<script type="text/javascript">
+    function send_otp(){
+	var mobile=jQuery('#mobile').val();
+	jQuery.ajax({
+		url:'verifyOtp.php',
+		type:'post',
+		data:'mobile='+mobile,
+		success:function(result){
+			
+				// jQuery('.second_box').show();
+				// jQuery('.first_box').hide();
+				openfrgtotp();
+			
+		}
+	});
+}
+	
+</script>
+
+
 </body>
 </html>
