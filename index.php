@@ -11,7 +11,7 @@
   <link rel="icon" type="image/x-icon" href="favicon.ico">
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-  <link rel="stylesheet" type="text/css" href="Fiapy-main/css/indexxstyle.css">
+  <link rel="stylesheet" type="text/css" href="Fiapy15165-main/css/indexstyle.css">
   <!-- <link rel="stylesheet" href="css\indexstyle.css"> -->
 </head>
 <body>
