@@ -107,30 +107,30 @@
 		</nav>
 	</div>
 <!--           Service Block                 -->
-		<div id="services" class="container">
+<div id="services">
 			<div class="row">
-				<!-- <div class="col-sm-6">
-					<div class="row"> -->
+				<div class="col-lg-12">
+					<div class="row">
 						<a [routerLink]="['/services/electrician']">
 							<div class="cards" id="cards">
-								<img src="Fiapy-main/images/Electrician.png" class="card-img-top" id="service-img">
+								<img src="Fiapy-main/images/services/electrician.png" class="card-img-top" id="service-img">
 								<p id="card-text">Electrician</p>
 							</div>
 						</a>
-						<a [routerLink]="['/services/plumber']">
+						<a [routerLink]="['/services/grooming']">
 							<div class="cards" id="cards">
-								<img src="Fiapy-main/images/Plumber.png" class="card-img-top" id="service-img">
-								<p id="card-text">Plumber</p>
+								<img src="Fiapy-main/images/services/Grooming.png" class="card-img-top" id="service-img">
+								<p id="card-text">Grooming</p>
 							</div>
 						</a>
-						<a [routerLink]="['/services/carpenter']">
+							<a [routerLink]="['/services/laundry']">
 							<div class="cards" id="cards">
-								<img src="Fiapy-main/images/Carpenter.png" class="card-img-top" id="service-img">
-								<p id="card-text">Carpenter</p>
+								<img src="Fiapy-main/images/services/laundry.png" class="card-img-top" id="service-img">
+								<p id="card-text">Laundry</p>
 							</div>
 						</a>
-					<!-- </div>
-				</div> -->
+					</div>
+				</div>
 				<!-- <div class="col-sm-6">
 					<div class="row">
 						<a [routerLink]="['/services/mechanic']">
@@ -191,22 +191,46 @@
     	<div class="container" >
     		<div class="row" id="carousel-inner-1">
     			<div class="card" id="card-imgs">
-  				<img src="Fiapy-main/images/artisan.jpg" class="card-img-top" alt="...">
+  				<img src="Fiapy-main/images/slider/electrician.jpg" class="card-img-top" alt="...">
 			</div>
 			<div class="card" id="card-imgs">
-  				<img src="Fiapy-main/images/plumber.jpg" class="card-img-top" alt="...">
+  				<img src="Fiapy-main/images/slider/plumbing.jpg" class="card-img-top" alt="...">
 			</div>
 			<div class="card" id="card-imgs">
-  				<img src="Fiapy-main/images/working.jpg" class="card-img-top" alt="...">
+  				<img src="Fiapy-main/images/slider/laundry.jpg" class="card-img-top" alt="...">
 			</div>
-    		</div>
+    	</div>
   	</div>
     </div>
     <div class="carousel-item">
-      <img src="Fiapy-main/images/#" class="d-block w-100" alt="...">
+      <div class="container" >
+    		<div class="row" id="carousel-inner-1">
+    			<div class="card" id="card-imgs">
+  				<img src="Fiapy-main/images/slider/artisan.jpg" class="card-img-top" alt="...">
+			</div>
+			<div class="card" id="card-imgs">
+  				<img src="Fiapy-main/images/slider/sanitization.jpg" class="card-img-top" alt="...">
+			</div>
+			<div class="card" id="card-imgs">
+  				<img src="Fiapy-main/images/slider/barber.jpg" class="card-img-top" alt="...">
+			</div>
+    	</div>
+  	</div>
     </div>
     <div class="carousel-item">
-      <img src="Fiapy-main/images/#" class="d-block w-100" alt="...">
+     <div class="container" >
+    		<div class="row" id="carousel-inner-1">
+    			<div class="card" id="card-imgs">
+  				<img src="Fiapy-main/images/slider/cleaning.jpg" class="card-img-top" alt="...">
+			</div>
+			<div class="card" id="card-imgs">
+  				<img src="Fiapy-main/images/slider/plumbing.jpg" class="card-img-top" alt="...">
+			</div>
+			<div class="card" id="card-imgs">
+  				<img src="Fiapy-main/images/slider/working.jpg" class="card-img-top" alt="...">
+			</div>
+    	</div>
+  	</div>
     </div>
   </div>
   <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
@@ -230,7 +254,7 @@
 
 <!--    fifth Section       -->
 
-<section id="carousel">
+<!-- <section id="carousel">
 	<div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
   <ol class="carousel-indicators">
     <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
@@ -298,7 +322,7 @@
     <span class="sr-only">Next</span>
   </a>
 </div>
-</section>
+</section> -->
 
 <!--    sixth Section       -->
 
@@ -331,7 +355,7 @@
 			</a>
 		</div>
 		<div class="col-sm-5">
-			<img src="Fiapy-main/images/iPhone.png" style="height: 500px;margin-right:  100px;">
+			<img src="Fiapy-main/images/mobile.jpg" style="height:500px;padding:20px;">
 		</div>
 	</div>
 </div>
@@ -339,30 +363,14 @@
 
 
 <!--    Footer Section       -->
-<div style="height:100px;background: linear-gradient(to right, #33ccff 0%, #5E79A8 65%); border-radius:50% 50% 0% 0%; text-align:center;color:white;padding-top:70px;">
-<h2>Explore More</h2>
-</div>
+<!-- <div style="height:100px;background: linear-gradient(to right, #33ccff 0%, #5E79A8 65%); border-radius:50% 50% 0% 0%; text-align:center;color:white;padding-top:70px;">
+</div> -->
 <section id="footer">
 	<footer>
 		<div class="container">
-			<div  class="row" id="footer-link">
-				<div class="col-sm-2">
-					<h4>Contact us</h4>
-					<li>
-						Conctact Us
-					</li>
-					<li>
-						+91-99999999999
-					</li>
-					<li>
-						+91-99999999999
-					</li>
-					<li>
-						example@example.com
-					</li>
-				</div>
-				<div class="col-sm-2">
-					<h4>Information</h4>
+	    <h2>Explore More</h2>
+		<div  class="row" id="footer-link">
+			    	<div class="col-lg-3">
 					<a href="">
 						<li>
 							About Us
@@ -370,89 +378,52 @@
 					</a>
 					<a href="">
 						<li>
-							Testimonial
-						</li>
-					</a>
-					<a href="">
-						<li>
 							Terms/Condition
 						</li>
 					</a>
-					<a href="">
-						<li>
-							Offers
-						</li>
-					</a>
-				</div>
-				<div class="col-sm-2">
-					<h4>Helpful Links</h4>
-					<a href="">
-						<li>
-							FAQs
-						</li>
-					</a>
-					<a href="">
-						<li>
-							Supports
-						</li>
-					</a>
-					<a href="">
-						<li>
-							Terms & conditions
-						</li>
-					</a>
-					<a href="">
+						<a href="">
 						<li>
 							Privacy policy
 						</li>
 					</a>
 				</div>
-				<div class="col-sm-5">
-					<h4>Be the first to get offers</h4>
-					<form class="form" >
-						<div class="row">
-							<div class="col-sm-6">
-								<h2>Email</h2>
-								<input type="email" placeholder="example@example.com" name="">
-							</div>
-							<div class="col-sm-6">
-								<h2>DOB</h2>
-								<input type="date" name="">
-							</div>
-						</div>
-						<div class="row">
-							<button type="button" class="btn btn-success" id="Subscribe-btn">Subscribe</button>
-						</div>
-					</form>
+				<div class = "col-lg-3">
+				    <h5> </h5>
+				    <a href="">
+						<li>
+							Team/Career
+						</li>
+					</a>
+				    <a href="">
+						<li>
+							Blog
+						</li>
+					</a>
+					<a href="">
+						<li>
+							Support
+						</li>
+					</a>
 				</div>
-			</div>
-			<div class="row" style="padding-top:50px; padding-bottom:50px;">
-				<div class="col-sm-6">
-					<h5>KEEP IN TOUCH</h5>
+				<div class="col-lg-3">
+					<h4>Contact us</h4>
+					<li>
+						+91-7461891999
+					</li>
+					<li>
+						contact@fiapy.com
+					</li>
+				</div>
+			
+			<div class="col-lg-3">
+					<h5>Keep In Touch</h5>
 					<div class="icon">
 						<i class="fab fa-instagram" style="height:20px;width:20px;"></i>
 						<i class="fab fa-facebook-f" style="height:20px;width:20px;"></i>
-						<i class="fab fa-twitter-square" style="height:20px;width:20px;"></i>
+						<i class="fab fa-twitter" style="height:20px;width:20px;"></i>
 					</div>
-				</div>
-				<div class="col-sm-6">
-					<li style="float: right;"><i class="far fa-copyright"></i>2020 www.mycompany.com. All Rights Reserved.</li>
-				</div>
-			</div>
-			<div class="row">
-				<div class="col-sm-8">
-					<h5>
-						Registered office address
-					</h5>
-					<li>3rd Floor, A Block,</li>
-					<li>AKR TECH PARK, &th Mile</li>
-					<li>Krishna Reddy Industrial Area,</li>
-					<li>Kudlu Gate,</li>
-					<li>Banglore-987654</li>
-				</div>
-				<div class="col-sm-4">
-				<li style="float: right; margin-top: 100px;">CIN:874653125653</li>
-				<li style="float: right;">Telephone: +91-56-9641616166</li>
+						<li style="float:left;"><i class="far fa-copyright"></i>2020 Fiapy Multiservices Pvt.Ltd.</li>
+						<li>All Rights Reserved.</li>
 				</div>
 			</div>
 		</div>

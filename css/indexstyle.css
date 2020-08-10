@@ -155,8 +155,8 @@
 #footer{
      background: linear-gradient(to right, #33ccff 0%, #5E79A8 65%);
      color: white;
-     padding-top: 100px;
-     padding-bottom: 100px;
+     padding-top: 50px;
+     padding-bottom: 50px;
 }
 li{
     list-style: none;
@@ -388,8 +388,8 @@ a{
 #footer{
      background: linear-gradient(to right, #33ccff 0%, #5E79A8 65%);
      color: white;
-     padding-top: 100px;
-     padding-bottom: 100px;
+     padding-top: 45px;
+     padding-bottom: 45px;
 }
 li{
     list-style: none;
