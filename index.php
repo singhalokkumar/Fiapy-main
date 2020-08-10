@@ -18,10 +18,9 @@
 <section id="first">
 	<div class="container" id="head1">
 		<nav class="navbar navbar-light bg-light" id="nav">
-  			<a class="navbar-brand" href="#" style="color: white !important;">
-    			<img src="#" width="30" height="30" class="d-inline-block align-top" alt="">
-    			<h3>Company Logo</h3>
- 			 </a>
+		<a class="navbar-brand" href="#" style="color: white !important;">
+    			<img src="Fiapy-main/images/logo.png" width="100px" height="100px" class="d-inline-block align-top" alt="">
+    		 </a>
   			<div class="container3">
 				<div class="btn-group ">
 					<button type="button" class="btn btn-primary-outline" style="color: white !important;" onclick="openproflogin()"><i class="fas fa-hammer"></i>  Register as Professional</button>
